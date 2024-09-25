@@ -20,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
@@ -33,6 +32,7 @@ import { fetchCategories } from "./actions";
 import { toast } from "sonner";
 import { z } from "zod";
 import Image from "next/image";
+import Tiptap from "@/components/Tiptap";
 type CreateProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductCreateRoute() {
@@ -41,7 +41,6 @@ export default function ProductCreateRoute() {
   >([]);
   const [images, setImages] = useState<string[]>([]);
   const [productFile, setProductFile] = useState<string>("");
-  console.log(productFile);
 
   const {
     control,
@@ -137,10 +136,7 @@ export default function ProductCreateRoute() {
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <Textarea
-                    {...field}
-                    placeholder="Write your description right here..."
-                  />
+                  <Tiptap description={field.value} onChange={field.onChange} />
                 )}
               />
               {errors.description && (

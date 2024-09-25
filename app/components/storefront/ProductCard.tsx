@@ -9,12 +9,14 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import Link from "next/link";
+import { JSONContent } from "@tiptap/react";
+import ProductDescription from "@/components/ProductDescription";
 
 interface iAppProps {
   item: {
     id: string;
     name: string;
-    description: string;
+    description: JSONContent;
     price: number;
     images: string[];
   };
@@ -49,7 +51,7 @@ export function ProductCard({ item }: iAppProps) {
         </h3>
       </div>
       <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-        {item.description}
+        <ProductDescription content={item.description} />{" "}
       </p>
 
       <Button asChild className="w-full mt-5">

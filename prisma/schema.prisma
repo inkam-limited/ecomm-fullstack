@@ -23,7 +23,7 @@ model User {
 model Product {
   id              String        @id @default(uuid())
   name            String
-  description     String
+  description     Json
   status          ProductStatus
   price           Int
   images          String[]

@@ -58,7 +58,7 @@ export async function createProduct(data: any) {
     const product = await prisma.product.create({
       data: {
         name: validatedData.data.name,
-        description: validatedData.data.description,
+        description: JSON.parse(validatedData.data.description),
         status: validatedData.data.status,
         price: validatedData.data.price,
         images: validatedData.data.images,
