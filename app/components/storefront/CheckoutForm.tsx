@@ -10,7 +10,16 @@ import { RotatingLines } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
-export const PaymentForm = ({ amount }: { amount: number }) => {
+export const PaymentForm = ({
+  amount,
+  name,
+  email,
+}: {
+  amount: number;
+  name: string;
+  email: string;
+  userId: string;
+}) => {
   const {
     register,
     handleSubmit,
@@ -18,10 +27,10 @@ export const PaymentForm = ({ amount }: { amount: number }) => {
   } = useForm<PaymentFormData>({
     resolver: zodResolver(PaymentSchema),
     defaultValues: {
-      cus_name: "John Doe",
-      cus_email: "john.doe@example.com",
-      cus_phone: "1234567890",
-      desc: "Test payment",
+      cus_name: name,
+      cus_email: email,
+      cus_phone: "",
+      desc: "Merchant payment",
       amount: Number(amount),
       currency: "BDT",
     },

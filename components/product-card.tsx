@@ -1,14 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@prisma/client";
 import { ProductWithIncludes } from "./product-cards";
 
 const ProductCard = ({ product }: { product: ProductWithIncludes }) => {
-  console.log(product);
   return (
     <Link
-      href={`product/${product.id}`}
+      href={`/product/${product.id}`}
       className="w-[calc(50%-.5rem)] md:w-[calc(25%-.5rem)] text-slate-900"
     >
       <div className="w-full relative aspect-w-7 aspect-h-5 rounded-lg">

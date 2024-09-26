@@ -5,10 +5,11 @@ import React from "react";
 import ProductCards from "./product-card-layout";
 import prisma from "@/app/lib/db";
 import { $Enums } from "@prisma/client";
+import { JsonValue } from "@prisma/client/runtime/library";
 export type ProductWithIncludes = {
   id: string;
   name: string;
-  description: string;
+  description: JsonValue;
   status: $Enums.ProductStatus;
   price: number;
   images: string[];

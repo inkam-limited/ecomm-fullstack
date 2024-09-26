@@ -31,10 +31,9 @@ export function ImageSlider({ images }: iAppProps) {
 
   return (
     <div className="grid gap-6 md:gap-3 items-start">
-      <div className="relative overflow-hidden rounded-lg">
+      <div className="relative aspect-w-7 aspect-h-5 overflow-hidden rounded-lg">
         <Image
-          width={600}
-          height={600}
+          fill
           src={images[mainImageIndex]}
           alt="Product image"
           className="object-cover w-[600px] h-[600px]"
@@ -57,7 +56,7 @@ export function ImageSlider({ images }: iAppProps) {
               index === mainImageIndex
                 ? "border-2 border-primary"
                 : "border border-gray-200",
-              "relative overflow-hidden rounded-lg cursor-pointer"
+              "relative overflow-hidden aspect-w-7 aspect-h-5 rounded-lg cursor-pointer"
             )}
             key={index}
             onClick={() => handleImageClick(index)}
@@ -65,8 +64,7 @@ export function ImageSlider({ images }: iAppProps) {
             <Image
               src={image}
               alt="Product Image"
-              width={100}
-              height={100}
+              fill
               className="object-cover w-[100px] h-[100px]"
             />
           </div>

@@ -1,108 +1,72 @@
-"use client";
-import React from "react";
-import { type Editor } from "@tiptap/react";
-import { Toggle } from "./ui/toggle";
-import {
-  Bold,
-  Heading2,
-  Italic,
-  List,
-  ListOrdered,
-  StrikethroughIcon,
-  Underline,
-  Link,
-  Quote,
-  Code,
-} from "lucide-react";
+import { Editor } from "@tiptap/react";
+import { ListIcon, ListOrderedIcon } from "lucide-react";
 
-type Props = {
-  editor: Editor | null;
-};
-
-function ToolBar({ editor }: Props) {
+function ToolBar({ editor }: { editor: Editor }) {
   if (!editor) {
     return null;
   }
 
   return (
-    <div className="flex gap-3 border border-input rounded-lg p-1 my-2">
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("heading", { level: 2 })}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
+    <div className="flex items-center gap-2">
+      {/* Bold Button */}
+      <button
+        type="button"
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        className={`px-2 pt-2 rounded ${
+          editor.isActive("bold") ? "bg-gray-200" : ""
+        }`}
+        title="Bold (Ctrl+B)"
+      >
+        <b>B</b>
+      </button>
+
+      {/* Italic Button */}
+      <button
+        type="button"
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        className={`px-2 pt-2 rounded ${
+          editor.isActive("italic") ? "bg-gray-200" : ""
+        }`}
+        title="Italic (Ctrl+I)"
+      >
+        <i>I</i>
+      </button>
+
+      {/* Heading */}
+      <button
+        type="button"
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        className={
+          editor.isActive("heading", { level: 2 }) ? "is-active pt-2" : "pt-2"
         }
       >
-        <Heading2 className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("bold")}
-        onPressedChange={() => editor.chain().focus().toggleBold().run()}
+        <h2>H2</h2>
+      </button>
+      {/* Heading */}
+
+      {/* Bullet List Button */}
+      <button
+        type="button"
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        className={`px-2 pt-2 rounded ${
+          editor.isActive("bulletList") ? "bg-gray-200" : ""
+        }`}
+        title="Bullet List"
       >
-        <Bold className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("italic")}
-        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+        <ListOrderedIcon />
+      </button>
+
+      {/* Ordered List Button */}
+      <button
+        type="button"
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        className={`px-2 pt-2 rounded ${
+          editor.isActive("orderedList") ? "bg-gray-200" : ""
+        }`}
+        title="Ordered List"
       >
-        <Italic className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("strike")}
-        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
-      >
-        <StrikethroughIcon className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("underline")}
-        onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
-      >
-        <Underline className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("bulletList")}
-        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
-      >
-        <List className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("orderedList")}
-        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
-      >
-        <ListOrdered className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("blockquote")}
-        onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
-      >
-        <Quote className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("codeBlock")}
-        onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
-      >
-        <Code className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("link")}
-        onPressedChange={() => {
-          const url = window.prompt("Enter URL");
-          if (url) {
-            editor.chain().focus().setLink({ href: url }).run();
-          }
-        }}
-      >
-        <Link className="h-4 w-4" />
-      </Toggle>
+        <ListIcon />
+      </button>
     </div>
   );
 }

@@ -63,7 +63,10 @@ export function DeleteItem() {
           Removing...
         </button>
       ) : (
-        <button type="submit" className="font-medium text-primary text-end">
+        <button
+          type="submit"
+          className="font-medium px-2 py-1 bg-red-500 text-white rounded-md text-primary text-end"
+        >
           Delete
         </button>
       )}

@@ -3,11 +3,12 @@ import { ShoppingBagButton } from "@/app/components/SubmitButtons";
 import { FeaturedProducts } from "@/app/components/storefront/FeaturedProducts";
 import { ImageSlider } from "@/app/components/storefront/ImageSlider";
 import prisma from "@/app/lib/db";
-
+import { JSONContent } from "@tiptap/react";
 import { StarIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import ProductCardDisplay from "@/components/product-cards";
+import ProductDescription from "@/components/ProductDescription";
 
 async function getData(productId: string) {
   const data = await prisma.product.findUnique({
@@ -40,7 +41,7 @@ export default async function ProductIdRoute({
   const addProductToShoppingCart = addItem.bind(null, data.id);
   return (
     <>
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start lg:gap-x-24 py-6">
+      <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-8 items-start py-6">
         <ImageSlider images={data.images} />
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
@@ -54,7 +55,9 @@ export default async function ProductIdRoute({
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
           </div>
-          <p className="text-base text-gray-700 mt-6">{data.description}</p>
+          <div className="w-full mt-6">
+            <ProductDescription content={data?.description as JSONContent} />
+          </div>
 
           <form action={addProductToShoppingCart}>
             <ShoppingBagButton />
