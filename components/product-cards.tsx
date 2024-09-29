@@ -55,7 +55,7 @@ const ProductCardDisplay = async ({
   });
 
   return (
-    <div>
+    <div className="py-8">
       <div className="flex py-4 justify-between items-center">
         <h3 className="font-semibold ">{title}</h3>
         <Link

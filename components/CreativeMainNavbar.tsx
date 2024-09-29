@@ -38,7 +38,7 @@ const CreativeMainNavbar = async () => {
   const categories = await prisma.category.findMany();
 
   return (
-    <div className="flex flex-col container mx-auto">
+    <nav className="flex flex-col container mx-auto">
       <div className="flex w-full items-center justify-between mx-auto max-w-7xl">
         <MobileMenu categories={categories} />
 
@@ -115,7 +115,7 @@ const CreativeMainNavbar = async () => {
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </nav>
   );
 };
 

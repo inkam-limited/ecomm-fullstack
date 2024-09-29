@@ -19,7 +19,7 @@ const CategoryChips = () => {
           className="px-8 py-2 border border-gray-200 rounded-2xl"
         >
           <Link
-            href={item.url}
+            href={`/products`}
             className="text-gray-600 text-sm hover:text-gray-800 font-semibold"
           >
             {item.name}

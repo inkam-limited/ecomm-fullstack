@@ -27,10 +27,11 @@ export default async function BagRoute() {
   cart?.items.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
+  console.log(cart?.items);
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 min-h-[55vh]">
-      {!cart || !cart.items ? (
+    <div className="max-w-7xl mx-auto mt-10 min-h-[70vh]">
+      {!cart || !cart.items || cart.items.length === 0 ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
             <ShoppingBag className="w-10 h-10 text-primary" />
@@ -49,8 +50,8 @@ export default async function BagRoute() {
           </Button>
         </div>
       ) : (
-        <div className="grid lg:grid-cols-2 gap-y-10">
-          <div className="w-full h-full relative">
+        <div className="grid lg:grid-cols-4 gap-y-10 min-h-[70vh]">
+          <div className="lg:col-span-1 w-full h-full relative hidden lg:block">
             <Image
               fill
               alt="checkout"
@@ -58,7 +59,7 @@ export default async function BagRoute() {
               className="object-contain"
             />
           </div>
-          <div>
+          <div className="lg:col-span-3 flex flex-col gap-y-10 p-10 lg:p-20 bg-white rounded-lg">
             {cart?.items.map((item) => (
               <div key={item.id} className="flex">
                 <div className="w-24 h-24 sm:w-32 sm:h-32 relative">
