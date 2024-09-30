@@ -2,7 +2,7 @@ import footerLinks from "@/lib/footerLinks";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100/90 py-8">
+    <footer className="bg-gray-100/70 py-8">
       <div className="container mx-auto grid grid-cols-2 md:grid-cols-5 gap-4 text-sm text-gray-900 px-4">
         <div>
           <h2 className="font-semibold text-lg">Creative Market</h2>

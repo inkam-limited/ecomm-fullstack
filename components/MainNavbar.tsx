@@ -1,18 +1,4 @@
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  LucideShoppingCart,
-  MenuIcon,
-  SearchIcon,
-  ShoppingBagIcon,
-  User2Icon,
-} from "lucide-react";
+import { ShoppingBagIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -27,8 +13,9 @@ import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import MobileMenu from "./mobile/mobile-menu";
 import prisma from "@/app/lib/db";
+import MainSearchBar from "./MainSearchBar";
 
-const CreativeMainNavbar = async () => {
+const MainNavbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -38,8 +25,8 @@ const CreativeMainNavbar = async () => {
   const categories = await prisma.category.findMany();
 
   return (
-    <nav className="flex flex-col container mx-auto">
-      <div className="flex w-full items-center justify-between mx-auto max-w-7xl">
+    <nav className="flex flex-col container mx-auto px-4">
+      <div className="flex w-full items-center justify-between mx-auto">
         <MobileMenu categories={categories} />
 
         <Link href="/">
@@ -96,27 +83,9 @@ const CreativeMainNavbar = async () => {
         </div>
       </div>
 
-      <div className="flex items-center w-full px-4 bg-gray-50 py-2 rounded-full">
-        <div className="flex items-center gap-4 flex-grow ">
-          <SearchIcon className="w-6 h-6" />
-          <Input
-            placeholder="Search millions of photos, fonts, graphics, and more..."
-            className="border-none bg-transparent focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 w-full rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent  focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0"
-          />
-        </div>
-        <Select>
-          <SelectTrigger className="w-[180px] bg-transparent border-none b focus:ring-0 focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent  focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0">
-            <SelectValue placeholder="All Categories" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <MainSearchBar categories={categories} />
     </nav>
   );
 };
 
-export default CreativeMainNavbar;
+export default MainNavbar;

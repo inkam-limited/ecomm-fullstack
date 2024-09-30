@@ -344,3 +344,39 @@ export async function createPayment(prevState: any, formData: FormData) {
 
   redirect(payment_url);
 }
+
+export const getSearchSuggestions = async (searchTerm: string) => {
+  const searchResults = await prisma.product.findMany({
+    where: {
+      OR: [
+        {
+          name: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          category: {
+            some: {
+              name: {
+                contains: searchTerm,
+                mode: "insensitive",
+              },
+            },
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      name: true,
+      images: true,
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return searchResults;
+};

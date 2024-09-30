@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .main-search-input {
+    @apply border-none bg-transparent focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 w-full rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

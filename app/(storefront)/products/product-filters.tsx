@@ -82,13 +82,13 @@ export default function ProductFilters({
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <Card>
-        <CardHeader>
+        <CardHeader className="px-2 py-2">
           <CollapsibleTrigger asChild>
             <Button
               variant="ghost"
               className="w-full flex justify-between items-center"
             >
-              <CardTitle className="text-base">Filters</CardTitle>
+              <CardTitle className="text-sm">Filters</CardTitle>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   isOpen ? "rotate-180" : ""
