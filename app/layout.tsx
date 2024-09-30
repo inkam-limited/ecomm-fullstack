@@ -5,7 +5,6 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
-import CreativeMainNavbar from "@/components/CreativeMainNavbar";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
