@@ -26,8 +26,8 @@ const links = [
     href: "/dashboard/category/create",
   },
   {
-    name: "Seed Category",
-    href: "/dashboard/category/seed",
+    name: "Blog ",
+    href: "/dashboard/blog",
   },
 ];
 

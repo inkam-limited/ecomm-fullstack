@@ -24,9 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <CreativeMainNavbar />
         {children}
-        <Footer />
         <Toaster />
       </body>
     </html>

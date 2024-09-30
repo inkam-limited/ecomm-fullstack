@@ -10,6 +10,12 @@ export function Video({ src }: { src: string }) {
   }, []);
 
   return (
-    isReady && <ReactPlayer url={src} controls={true} className="w-full" />
+    isReady && (
+      <ReactPlayer
+        url={src}
+        controls={true}
+        className=" md:basis-2/3 w-full lg:basis-1/2"
+      />
+    )
   );
 }

@@ -1,5 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { ListIcon, ListOrderedIcon } from "lucide-react";
+import { Heading, ListIcon, ListOrderedIcon } from "lucide-react";
 
 function ToolBar({ editor }: { editor: Editor }) {
   if (!editor) {
@@ -40,7 +40,9 @@ function ToolBar({ editor }: { editor: Editor }) {
           editor.isActive("heading", { level: 2 }) ? "is-active pt-2" : "pt-2"
         }
       >
-        <h2>H2</h2>
+        <h2>
+          <Heading />
+        </h2>
       </button>
       {/* Heading */}
 

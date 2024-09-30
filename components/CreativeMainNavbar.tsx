@@ -101,11 +101,11 @@ const CreativeMainNavbar = async () => {
           <SearchIcon className="w-6 h-6" />
           <Input
             placeholder="Search millions of photos, fonts, graphics, and more..."
-            className="border-none bg-transparent focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none"
+            className="border-none bg-transparent focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 w-full rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent  focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0"
           />
         </div>
         <Select>
-          <SelectTrigger className="w-[180px] bg-transparent border-none b focus:ring-0">
+          <SelectTrigger className="w-[180px] bg-transparent border-none b focus:ring-0 focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent  focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0">
             <SelectValue placeholder="All Categories" />
           </SelectTrigger>
           <SelectContent>

@@ -16,8 +16,21 @@ model User {
 
   orders Order[]
 
-  createdAt DateTime  @default(now())
+  createdAt DateTime   @default(now())
   Product   Product[]
+  Review    Review[]
+  blogPost  BlogPost[]
+}
+
+model BlogPost {
+  id          String        @id @default(uuid())
+  title       String
+  coverImage  String
+  status      ProductStatus
+  thumbnail   String
+  content     Json
+  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdById String
 }
 
 model Product {
@@ -32,8 +45,19 @@ model Product {
   productFileLink String?
   createdBy       User?         @relation(fields: [createdById], references: [id])
   createdById     String?
+  reviews         Review[]
 
   createdAt DateTime @default(now())
+}
+
+model Review {
+  id          String  @id @default(uuid())
+  rating      Int
+  comment     String
+  createdBy   User    @relation(fields: [createdById], references: [id])
+  createdById String
+  product     Product @relation(fields: [productId], references: [id])
+  productId   String
 }
 
 model Banner {

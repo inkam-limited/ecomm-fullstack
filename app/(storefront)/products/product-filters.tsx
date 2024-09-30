@@ -42,7 +42,7 @@ export default function ProductFilters({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [localPriceRange, setLocalPriceRange] = useState([minPrice, maxPrice]);
   const [localCategoryIds, setLocalCategoryIds] =

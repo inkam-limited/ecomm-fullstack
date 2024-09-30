@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/pagination";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function ProductsPage({
   searchParams,
@@ -66,8 +67,8 @@ export default async function ProductsPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">
-        UI Design Products
+      <h1 className="text-2xl font-semibold mb-8 text-center">
+        Discover our trendy design and custom templates.
       </h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <aside className="w-full lg:w-1/4">
@@ -81,24 +82,16 @@ export default async function ProductsPage({
         </aside>
 
         <main className="w-full lg:w-3/4">
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-            <Input
-              placeholder="Search products..."
-              defaultValue={search}
-              className="max-w-xs"
-            />
-            <Select defaultValue={sort}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name">Name</SelectItem>
-                <SelectItem value="price">Price</SelectItem>
-                <SelectItem value="rating">Rating</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div>
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-24 w-full" />
+              </div>
+            }
+          >
             <ProductList products={products} />
           </Suspense>
           <Pagination className="mt-8">

@@ -5,6 +5,7 @@ import Heading from "@tiptap/extension-heading";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ToolBar from "./ToolBar";
+import Image from "@tiptap/extension-image";
 
 function Tiptap({
   description,
@@ -16,6 +17,9 @@ function Tiptap({
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Image.configure({
+        inline: true,
+      }),
       Heading.configure({
         HTMLAttributes: {
           class: "text-xl font-bold capitalize",
@@ -53,6 +57,7 @@ function Tiptap({
   return (
     <div className="flex flex-col justify-stretch min-h-[250px]">
       {editor && <ToolBar editor={editor} />}
+
       <EditorContent editor={editor} />
     </div>
   );
