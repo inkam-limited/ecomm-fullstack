@@ -27,7 +27,7 @@ model BlogPost {
   title       String
   coverImage  String
   status      ProductStatus @default(published)
-  thumbnail   String
+  thumbnail   String?
   content     Json
   createdBy   User          @relation(fields: [createdById], references: [id])
   createdById String

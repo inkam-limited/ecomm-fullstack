@@ -1,8 +1,26 @@
 "use server";
 
-export const createPost = async ({ title, content }: any) => {
-  console.log("title", title);
-  console.log("content", content);
+import prisma from "@/app/lib/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-  return null;
+export const createPost = async ({ title, content, bannerImage }: any) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const newPost = await prisma.blogPost.create({
+    data: {
+      title,
+      content: JSON.stringify(JSON.parse(content)),
+      coverImage: bannerImage,
+      createdBy: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  });
+  console.log(newPost);
+  return { success: true, message: "Post created successfully" };
 };

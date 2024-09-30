@@ -4,8 +4,8 @@ import { Video } from "./video";
 
 const ActionToSell = () => {
   return (
-    <div className="container px-4 mx-auto flex gap-4 py-8 bg-amber-200/20 rounded-lg">
-      <div className="basis-full md:basis-1/3 lg:basis-1/2 p-8 pt-20">
+    <div className="container px-4 mx-auto flex flex-wrap gap-4 py-8 bg-amber-200/20 rounded-lg">
+      <div className="basis-full md:basis-1/3 lg:basis-1/2 p-8 pt-12">
         <h2 className="font-semibold">Start Earning with Creative Market</h2>
         <p className="text-gray-600 text-sm py-4 max-w-md">
           Sell your designs and reach millions of buyers or promote other
