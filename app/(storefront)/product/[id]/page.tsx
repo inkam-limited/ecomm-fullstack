@@ -1,6 +1,6 @@
 import { addItem } from "@/app/actions";
-import { ShoppingBagButton } from "@/app/components/SubmitButtons";
-import { ImageSlider } from "@/app/components/storefront/ImageSlider";
+import { ShoppingBagButton } from "@/components/SubmitButtons";
+import { ImageSlider } from "@/components/storefront/ImageSlider";
 import prisma from "@/app/lib/db";
 import { JSONContent } from "@tiptap/react";
 import { StarIcon } from "lucide-react";

@@ -22,14 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useForm, UseFormReturn } from "react-hook-form";
 import Tiptap from "@/components/Tiptap";
+import { PostFormValues, postSchema } from "./schema";
 
-export const postSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
-  bannerImage: z.string().min(1, "Banner image is required"),
-});
-
-export type PostFormValues = z.infer<typeof postSchema>;
+// Move schema and types outside of the component
 
 export default function NewPost() {
   const router = useRouter();

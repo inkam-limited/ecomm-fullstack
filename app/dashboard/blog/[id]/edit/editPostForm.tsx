@@ -5,13 +5,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { createPost } from "../../create/actions";
-import { PostFormValues, postSchema } from "../../create/page";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import Tiptap from "@/components/Tiptap";
 import { BlogPost } from "@prisma/client";
+import { PostFormValues, postSchema } from "../../create/schema";
 
 const EditPostForm = ({ post }: { post: BlogPost }) => {
   const [bannerImage, setBannerImage] = useState<string>("");
@@ -23,7 +23,6 @@ const EditPostForm = ({ post }: { post: BlogPost }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
   } = useForm<PostFormValues>({
     resolver: zodResolver(postSchema),
     defaultValues: {

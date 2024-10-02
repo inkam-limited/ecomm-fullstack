@@ -19,7 +19,7 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { categorySchema } from "@/app/lib/zodSchemas";
 import { useState } from "react";
-import { SubmitButton } from "@/app/components/SubmitButtons";
+import { SubmitButton } from "@/components/SubmitButtons";
 
 export default function CategoryCreateRoute() {
   const [image, setImage] = useState<string[]>([]);

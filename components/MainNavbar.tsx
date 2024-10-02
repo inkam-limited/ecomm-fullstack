@@ -7,7 +7,7 @@ import {
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
-import { UserDropdown } from "@/app/components/storefront/UserDropdown";
+import { UserDropdown } from "@/components/storefront/UserDropdown";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";

@@ -1,4 +1,4 @@
-import { PaymentForm } from "@/app/components/storefront/CheckoutForm";
+import { PaymentForm } from "@/components/storefront/CheckoutForm";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Card } from "@/components/ui/card";

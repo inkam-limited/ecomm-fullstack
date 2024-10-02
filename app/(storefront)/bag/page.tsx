@@ -1,5 +1,5 @@
 import { delItem } from "@/app/actions";
-import { DeleteItem } from "@/app/components/SubmitButtons";
+import { DeleteItem } from "@/components/SubmitButtons";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
 import { Button, buttonVariants } from "@/components/ui/button";

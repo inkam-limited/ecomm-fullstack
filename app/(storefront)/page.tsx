@@ -2,7 +2,7 @@ import CategoryBar from "@/components/CategoryBar";
 import CategoryChips from "../../components/CategoryChips";
 import ProductCardDisplay from "../../components/product-cards";
 import prisma from "../lib/db";
-import BannerCard from "../components/BannerCard";
+import BannerCard from "../../components/BannerCard";
 import ActionToSell from "@/components/ActionToSell";
 import BlogSection from "@/components/blog-section";
 

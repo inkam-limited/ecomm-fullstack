@@ -2,15 +2,6 @@ import { z } from "zod";
 import EditPostForm from "./editPostForm";
 import prisma from "@/app/lib/db";
 
-// Define Zod schema
-const postSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
-  bannerImage: z.string().optional(),
-});
-
-export type PostFormValues = z.infer<typeof postSchema>;
-
 export default async function EditPost({ params }: { params: { id: string } }) {
   const post = await prisma.blogPost.findFirst({
     where: {

@@ -26,7 +26,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
 import { useEffect, useState } from "react";
-import { SubmitButton } from "@/app/components/SubmitButtons";
+import { SubmitButton } from "@/components/SubmitButtons";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { fetchCategories } from "./actions";
 import { toast } from "sonner";

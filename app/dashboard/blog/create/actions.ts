@@ -2,7 +2,7 @@
 
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { PostFormValues } from "./page";
+import { PostFormValues } from "./schema";
 
 export const createPost = async ({
   title,
