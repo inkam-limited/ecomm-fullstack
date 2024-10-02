@@ -1,5 +1,6 @@
 "use server";
-import prisma from "@/app/lib/db";
+
+import prisma from "@/lib/db";
 
 export const fetchCategories = async () => {
   const categories = await prisma.category.findMany();

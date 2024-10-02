@@ -1,4 +1,3 @@
-import prisma from "@/app/lib/db";
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import prisma from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function getData() {

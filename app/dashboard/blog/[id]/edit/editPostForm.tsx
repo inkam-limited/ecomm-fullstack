@@ -1,5 +1,4 @@
 "use client";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -12,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import Tiptap from "@/components/Tiptap";
 import { BlogPost } from "@prisma/client";
 import { PostFormValues, postSchema } from "../../create/schema";
+import { UploadDropzone } from "@/lib/uplaodthing";
 
 const EditPostForm = ({ post }: { post: BlogPost }) => {
   const [bannerImage, setBannerImage] = useState<string>("");

@@ -1,13 +1,13 @@
 import { addItem } from "@/app/actions";
 import { ShoppingBagButton } from "@/components/SubmitButtons";
 import { ImageSlider } from "@/components/storefront/ImageSlider";
-import prisma from "@/app/lib/db";
 import { JSONContent } from "@tiptap/react";
 import { StarIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import ProductCardDisplay from "@/components/product-cards";
 import ProductDescription from "@/components/ProductDescription";
+import prisma from "@/lib/db";
 
 async function getData(productId: string) {
   const data = await prisma.product.findUnique({

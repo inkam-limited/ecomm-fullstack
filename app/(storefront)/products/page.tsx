@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import prisma from "@/app/lib/db";
 import {
   Pagination,
   PaginationContent,
@@ -20,6 +19,7 @@ import {
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import prisma from "@/lib/db";
 
 export default async function ProductsPage({
   searchParams,

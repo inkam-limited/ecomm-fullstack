@@ -1,11 +1,8 @@
-import prisma from "@/app/lib/db";
-import ProductDescription from "@/components/ProductDescription";
 import React from "react";
-import { JSONContent } from "@tiptap/react";
-import Image from "next/image";
 import BlogArticle from "./blog-article";
 import { notFound } from "next/navigation";
 import { JsonValue } from "@prisma/client/runtime/library";
+import prisma from "@/lib/db";
 
 export type BlogPostWithCreator = {
   id: string;

@@ -1,7 +1,8 @@
 import { PaymentForm } from "@/components/storefront/CheckoutForm";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
+
 import { Card } from "@/components/ui/card";
+import { Cart } from "@/lib/interfaces";
+import { redis } from "@/lib/redis";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore } from "next/cache";
 import { redirect } from "next/navigation";

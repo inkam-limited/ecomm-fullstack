@@ -1,8 +1,8 @@
 "use server";
 
-import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { PostFormValues } from "./schema";
+import prisma from "@/lib/db";
 
 export const createPost = async ({
   title,

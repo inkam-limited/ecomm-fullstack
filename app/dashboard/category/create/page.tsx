@@ -17,9 +17,9 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { categorySchema } from "@/app/lib/zodSchemas";
 import { useState } from "react";
 import { SubmitButton } from "@/components/SubmitButtons";
+import { categorySchema } from "@/lib/zodSchemas";
 
 export default function CategoryCreateRoute() {
   const [image, setImage] = useState<string[]>([]);

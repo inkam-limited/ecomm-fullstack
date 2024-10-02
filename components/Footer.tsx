@@ -48,11 +48,11 @@ const Footer = () => {
           </div>
         </div>
 
-        {footerLinks.map((section) => (
+        {footerLinks.map((section: Record<string, any>) => (
           <div key={section.title}>
             <h2 className="font-semibold text-lg">{section.title}</h2>
             <ul className="mt-4 space-y-2">
-              {section.links.map((link) => (
+              {section.links.map((link: Record<string, any>) => (
                 <li key={link.name}>
                   <a
                     href={link.href}

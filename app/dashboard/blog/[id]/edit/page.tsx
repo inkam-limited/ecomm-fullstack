@@ -1,6 +1,6 @@
 import { z } from "zod";
 import EditPostForm from "./editPostForm";
-import prisma from "@/app/lib/db";
+import prisma from "@/lib/db";
 
 export default async function EditPost({ params }: { params: { id: string } }) {
   const post = await prisma.blogPost.findFirst({

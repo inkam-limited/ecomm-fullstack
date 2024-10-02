@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { createPost } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
 import Image from "next/image";
 
 import {
@@ -23,6 +22,7 @@ import { toast } from "sonner";
 import { useForm, UseFormReturn } from "react-hook-form";
 import Tiptap from "@/components/Tiptap";
 import { PostFormValues, postSchema } from "./schema";
+import { UploadDropzone } from "@/lib/uplaodthing";
 
 // Move schema and types outside of the component
 

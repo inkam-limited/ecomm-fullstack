@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/db";
+import prisma from "@/lib/db";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";

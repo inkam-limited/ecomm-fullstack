@@ -1,7 +1,6 @@
 import { delItem } from "@/app/actions";
 import { DeleteItem } from "@/components/SubmitButtons";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { BadgeCheck, ShoppingBag } from "lucide-react";
@@ -10,6 +9,8 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Cart } from "@/lib/interfaces";
+import { redis } from "@/lib/redis";
 
 export default async function BagRoute() {
   noStore();

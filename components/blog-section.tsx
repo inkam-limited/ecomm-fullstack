@@ -1,4 +1,3 @@
-import prisma from "@/app/lib/db";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import prisma from "@/lib/db";
 
 const BlogSection = async () => {
   const posts = await prisma.blogPost.findMany({

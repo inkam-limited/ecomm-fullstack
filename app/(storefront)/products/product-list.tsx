@@ -1,4 +1,3 @@
-import prisma from "@/app/lib/db";
 import ProductCard from "@/components/product-card";
 import { ProductWithIncludes } from "@/components/product-cards";
 

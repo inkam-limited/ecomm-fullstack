@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { createPayment } from "@/app/actions";
-import { PaymentSchema } from "@/app/lib/zodSchemas";
 import { RotatingLines } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PaymentSchema } from "@/lib/zodSchemas";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export const PaymentForm = ({

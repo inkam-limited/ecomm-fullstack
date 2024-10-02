@@ -1,6 +1,6 @@
-import prisma from "@/app/lib/db";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
+import prisma from "@/lib/db";
+import { redis } from "@/lib/redis";
+
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 

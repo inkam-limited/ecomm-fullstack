@@ -2,19 +2,20 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
-import {
-  PaymentSchema,
-  bannerSchema,
-  categorySchema,
-  productSchema,
-} from "./lib/zodSchemas";
-import prisma from "./lib/db";
-import { redis } from "./lib/redis";
-import { Cart } from "./lib/interfaces";
+
 import { revalidatePath } from "next/cache";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import { z } from "zod";
+import {
+  bannerSchema,
+  categorySchema,
+  PaymentSchema,
+  productSchema,
+} from "@/lib/zodSchemas";
+import prisma from "@/lib/db";
+import { Cart } from "@/lib/interfaces";
+import { redis } from "@/lib/redis";
 export async function createCategory(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -41,7 +42,7 @@ export async function createCategory(prevState: unknown, formData: FormData) {
     },
   });
 
-  redirect("/dashboard/categories");
+  redirect("/dashboard");
 }
 
 export async function createProduct(data: any) {

@@ -9,11 +9,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserDropdown } from "@/components/storefront/UserDropdown";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
-import MobileMenu from "./mobile/mobile-menu";
-import prisma from "@/app/lib/db";
+
 import MainSearchBar from "./MainSearchBar";
+import { Cart } from "@/lib/interfaces";
+import { redis } from "@/lib/redis";
+import prisma from "@/lib/db";
+import MobileMenu from "./mobile/mobile-menu";
 
 const MainNavbar = async () => {
   const { getUser } = getKindeServerSession();

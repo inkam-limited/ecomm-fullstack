@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import ProductCards from "./product-card-layout";
-import prisma from "@/app/lib/db";
 import { $Enums } from "@prisma/client";
 import { JsonValue } from "@prisma/client/runtime/library";
+import prisma from "@/lib/db";
 export type ProductWithIncludes = {
   id: string;
   name: string;

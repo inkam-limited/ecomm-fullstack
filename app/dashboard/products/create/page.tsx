@@ -1,6 +1,5 @@
 "use client";
 import { createProduct } from "@/app/actions";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +23,6 @@ import { ChevronLeft, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema } from "@/app/lib/zodSchemas";
 import { useEffect, useState } from "react";
 import { SubmitButton } from "@/components/SubmitButtons";
 import { MultiSelect } from "@/components/ui/multi-select";
@@ -33,6 +31,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 import Image from "next/image";
 import Tiptap from "@/components/Tiptap";
+import { productSchema } from "@/lib/zodSchemas";
+import { UploadDropzone } from "@/lib/uplaodthing";
 type CreateProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductCreateRoute() {
