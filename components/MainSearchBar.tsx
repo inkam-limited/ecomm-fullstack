@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Input } from "./ui/input";
 import {
   Select,
@@ -39,18 +39,18 @@ const MainSearchBar = ({ categories }: { categories: Category[] }) => {
     };
   };
 
-  const handleSearch = useCallback(
-    debounce(async (searchParams: string) => {
+  const handleSearch = useMemo(() => {
+    const debouncedSearch = debounce(async (searchParams: string) => {
       if (searchParams.trim()) {
         const searchResults = await getSearchSuggestions(searchParams);
         setSearchSuggestions(searchResults);
       } else {
         setSearchSuggestions([]); // Clear suggestions if search is empty
       }
-    }, 300),
-    []
-  );
+    }, 300);
 
+    return debouncedSearch;
+  }, []);
   // Watch searchParams and trigger debounced search
   useEffect(() => {
     handleSearch(searchParams);
@@ -99,6 +99,7 @@ const MainSearchBar = ({ categories }: { categories: Category[] }) => {
               <Link
                 key={suggestion.id}
                 href={`/product/${suggestion.id}`}
+                onClick={() => setSearchFocus(false)}
                 className="flex justify-between items-center p-2 hover:bg-gray-100 rounded-md"
               >
                 <span className="line-clamp-1 text-gray-700 text-sm w-full">

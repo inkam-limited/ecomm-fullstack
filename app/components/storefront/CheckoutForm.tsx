@@ -1,5 +1,5 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
@@ -8,6 +8,15 @@ import { createPayment } from "@/app/actions";
 import { PaymentSchema } from "@/app/lib/zodSchemas";
 import { RotatingLines } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export const PaymentForm = ({
@@ -21,6 +30,7 @@ export const PaymentForm = ({
   userId: string;
 }) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
@@ -29,10 +39,10 @@ export const PaymentForm = ({
     defaultValues: {
       cus_name: name,
       cus_email: email,
-      cus_phone: "",
+      cus_phone: "01865048207",
       desc: "Merchant payment",
       amount: Number(amount),
-      currency: "BDT",
+      currency: "USD",
     },
   });
   const onSubmit = async (data: z.infer<typeof PaymentSchema>) => {
@@ -51,6 +61,7 @@ export const PaymentForm = ({
       throw new Error(error.message);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-4 py-4">
@@ -104,7 +115,7 @@ export const PaymentForm = ({
           </Label>
           <div className="flex items-center gap-x-2">
             <span>
-              <span className="text-muted-foreground text-sm ">$</span>
+              <span className="text-muted-foreground text-sm ">&#2547;</span>
             </span>
             <Input
               disabled
@@ -130,11 +141,20 @@ export const PaymentForm = ({
           <Label htmlFor="currency" className="text-right uppercase">
             Currency
           </Label>
-          <Input
-            id="currency"
-            defaultValue="BDT"
-            {...register("currency")}
-            className="col-span-3"
+          <Controller
+            name="currency"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="BDT">BDT</SelectItem>
+                  <SelectItem value="USD">USD</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
           />
           {errors.currency && (
             <p className="col-span-4 text-red-500">{errors.currency.message}</p>

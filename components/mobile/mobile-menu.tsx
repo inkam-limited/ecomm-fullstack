@@ -19,10 +19,6 @@ const MobileMenu = ({ categories }: { categories: Category[] }) => {
       <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Categories</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
         </SheetHeader>
         <div>
           {categories.map((category) => (

@@ -18,12 +18,8 @@ const links = [
     href: "/dashboard/products",
   },
   {
-    name: "Banner Picture",
+    name: "Banner",
     href: "/dashboard/banner",
-  },
-  {
-    name: "Create Category",
-    href: "/dashboard/category/create",
   },
   {
     name: "Blog ",

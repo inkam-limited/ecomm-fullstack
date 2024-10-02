@@ -29,8 +29,10 @@ model BlogPost {
   status      ProductStatus @default(published)
   thumbnail   String?
   content     Json
+  isFeatured  Boolean       @default(false)
   createdBy   User          @relation(fields: [createdById], references: [id])
   createdById String
+  createdAt   DateTime      @default(now())
 }
 
 model Product {

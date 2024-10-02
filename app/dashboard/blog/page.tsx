@@ -29,16 +29,16 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function getData() {
-  const data = await prisma.banner.findMany({
+  const data = await prisma.blogPost.findMany({
     orderBy: {
       createdAt: "desc",
     },
   });
-
+  console.log(data);
   return data;
 }
 
-export default async function BannerRoute() {
+export default async function BlogRoute() {
   noStore();
   const data = await getData();
   return (
@@ -54,8 +54,8 @@ export default async function BannerRoute() {
 
       <Card className="mt-5">
         <CardHeader>
-          <CardTitle>Banners</CardTitle>
-          <CardDescription>Manage your banners</CardDescription>
+          <CardTitle>Blog</CardTitle>
+          <CardDescription>Manage your posts</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -73,7 +73,7 @@ export default async function BannerRoute() {
                   <TableCell>
                     <Image
                       alt="Product Image"
-                      src={item.imageString}
+                      src={item.coverImage}
                       width={64}
                       height={64}
                       className="rounded-lg object-cover h-16 w-16"
@@ -92,7 +92,12 @@ export default async function BannerRoute() {
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/banner/${item.id}/delete`}>
+                          <Link href={`/dashboard/blog/${item.id}/edit`}>
+                            Edit
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/dashboard/blog/${item.id}/delete`}>
                             Delete
                           </Link>
                         </DropdownMenuItem>

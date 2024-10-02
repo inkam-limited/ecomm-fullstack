@@ -2,8 +2,13 @@
 
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { PostFormValues } from "./page";
 
-export const createPost = async ({ title, content, bannerImage }: any) => {
+export const createPost = async ({
+  title,
+  content,
+  bannerImage,
+}: PostFormValues) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -12,7 +17,7 @@ export const createPost = async ({ title, content, bannerImage }: any) => {
   const newPost = await prisma.blogPost.create({
     data: {
       title,
-      content: JSON.stringify(JSON.parse(content)),
+      content,
       coverImage: bannerImage,
       createdBy: {
         connect: {

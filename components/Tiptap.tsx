@@ -6,6 +6,7 @@ import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ToolBar from "./ToolBar";
 import Image from "@tiptap/extension-image";
+import { JsonValue } from "@prisma/client/runtime/library";
 
 function Tiptap({
   description,
@@ -16,7 +17,7 @@ function Tiptap({
 }) {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure(),
       Image.configure({
         inline: true,
       }),
@@ -41,7 +42,7 @@ function Tiptap({
     editorProps: {
       attributes: {
         class:
-          "shadow appearance-none min-h-[150px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
+          "min-h-[150px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
       },
     },
     content: description,

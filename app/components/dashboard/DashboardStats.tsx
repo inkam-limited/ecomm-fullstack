@@ -45,7 +45,7 @@ export async function DashboardStats() {
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">
-            ${new Intl.NumberFormat("en-US").format(totalAmount / 100)}
+            &#2547;{new Intl.NumberFormat("bn-BD").format(totalAmount)}
           </p>
           <p className="text-xs text-muted-foreground">Based on 100 Charges</p>
         </CardContent>
@@ -57,9 +57,7 @@ export async function DashboardStats() {
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">+{order.length}</p>
-          <p className="text-xs text-muted-foreground">
-            Total Sales on ShoeMarshal
-          </p>
+          <p className="text-xs text-muted-foreground">Total Sales</p>
         </CardContent>
       </Card>
       <Card>

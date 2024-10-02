@@ -21,7 +21,7 @@ const ProductCard = ({ product }: { product: ProductWithIncludes }) => {
         <div className="flex items-center justify-between">
           <div className="text-sm font-bold line-clamp-1">{product.name}</div>
           <div className="text-sm font-bold bg-slate-100 h-full flex items-center justify-center px-2 py-1">
-            <p>${product.price}</p>
+            <p>&#2547;{product.price}</p>
           </div>
         </div>
         <p className="font-normal text-xs text-slate-800/80">
