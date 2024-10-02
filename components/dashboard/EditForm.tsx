@@ -24,15 +24,16 @@ import Link from "next/link";
 import { SubmitButton } from "../SubmitButtons";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
-import { UploadDropzone } from "@/app/lib/uplaodthing";
-import { categories } from "@/app/lib/categories";
+
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { createProduct, editProduct } from "@/app/actions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { productSchema } from "@/app/lib/zodSchemas";
 import { type $Enums, type Category } from "@prisma/client";
+import { productSchema } from "@/lib/zodSchemas";
+import { categories } from "@/lib/categories";
+import { UploadDropzone } from "@/lib/uplaodthing";
 
 interface iAppProps {
   data: {
