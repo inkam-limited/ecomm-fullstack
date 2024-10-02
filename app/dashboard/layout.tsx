@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { DashboardNavigation } from "../components/dashboard/DasboardNavigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { CircleUser, MenuIcon } from "lucide-react";
@@ -15,6 +14,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { unstable_noStore as noStore } from "next/cache";
+import { DashboardNavigation } from "@/components/dashboard/DasboardNavigation";
 
 export default async function DashboardLayout({
   children,
