@@ -331,7 +331,6 @@ export async function createPayment(prevState: any, formData: FormData) {
       },
     }
   );
-  console.log(data);
   if (data.result !== "true") {
     let errorMessage = Object.values(data).join(". ");
     return { error: errorMessage };
