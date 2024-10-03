@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { createPayment } from "@/app/actions";
+import { createPayment, getConversionRate } from "@/app/actions";
 import { RotatingLines } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,14 +17,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PaymentSchema } from "@/lib/zodSchemas";
+import { useEffect } from "react";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export const PaymentForm = ({
-  amount,
+  total_amount,
   name,
   email,
 }: {
-  amount: number;
+  total_amount: number;
   name: string;
   email: string;
   userId: string;
@@ -33,6 +34,9 @@ export const PaymentForm = ({
     control,
     register,
     handleSubmit,
+    watch,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<PaymentFormData>({
     resolver: zodResolver(PaymentSchema),
@@ -41,10 +45,29 @@ export const PaymentForm = ({
       cus_email: email,
       cus_phone: "01865048207",
       desc: "Merchant payment",
-      amount: Number(amount),
-      currency: "USD",
+      amount: Number(total_amount),
+      currency: "BDT",
     },
   });
+
+  const handleConversion = async (currency: string, amount: number) => {
+    const conversionRate: Record<string, any> = await getConversionRate(
+      getValues("currency")
+    );
+    console.log("amount", total_amount);
+    const price =
+      currency === "USD"
+        ? Number(amount) * Number(conversionRate)
+        : total_amount;
+    setValue("amount", price.toFixed(1));
+  };
+
+  const selectedCurrency = watch("currency");
+  useEffect(() => {
+    handleConversion(selectedCurrency, Number(getValues("amount")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCurrency]);
+
   const onSubmit = async (data: z.infer<typeof PaymentSchema>) => {
     const formData = new FormData();
 

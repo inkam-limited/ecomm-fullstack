@@ -47,9 +47,9 @@ const BlogSection = async () => {
           {posts.map((post) => (
             <CarouselItem
               key={post.id}
-              className="basis-1/2 md:basis-1/3 pl-4 lg:basis-1/4"
+              className="basis-1/2 md:basis-1/3 pl-4 lg:basis-1/4 rounded-lg"
             >
-              <div className="p-4 bg-slate-800 h-full flex flex-col justify-between">
+              <div className="p-4 bg-slate-100 h-full flex flex-col justify-between">
                 <div className="w-full relative aspect-w-7 aspect-h-5 rounded-lg bg-gradient-to-br from-slate-500/50 to-blue-500/50 via-red-500/50 backdrop-blur-3xl">
                   <Image
                     src={post.coverImage}
@@ -58,12 +58,12 @@ const BlogSection = async () => {
                     className="object-cover object-center w-full h-full rounded-lg"
                   />
                 </div>
-                <h3 className="text-sm py-8 font-bold text-gray-100">
+                <h3 className="text-sm py-8 font-bold text-slate-800">
                   {post.title}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400"></p>
+                <p className="text-slate-800 dark:text-slate-400"></p>
                 <Link
-                  className="inline-flex items-center text-gray-100 border px-2 py-2"
+                  className="inline-flex items-center text-slate-800 border bg-gray-200 rounded-sm px-2 py-3"
                   href={`/blog/${post.title}/${post.id}`}
                 >
                   Read more

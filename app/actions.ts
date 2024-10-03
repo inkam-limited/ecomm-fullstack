@@ -321,7 +321,6 @@ export async function createPayment(prevState: any, formData: FormData) {
     cancel_url: `${process.env.BASE_URL}/api/callback?transactionId=${transactionId}`,
     type: "json",
   };
-  console.log(paymentFormData);
 
   const { data } = await axios.post(
     "https://sandbox.aamarpay.com/jsonpost.php",
@@ -380,4 +379,14 @@ export const getSearchSuggestions = async (searchTerm: string) => {
     },
   });
   return searchResults;
+};
+
+export const getConversionRate = async (fromCurrency: string) => {
+  const conversionRate: Record<string, any> = await axios.get(
+    `https://v6.exchangerate-api.com/v6/4092a624c9514b7db55a4c0b/latest/${
+      fromCurrency === "USD" ? "BDT" : "USD"
+    }`
+  );
+
+  return conversionRate["data"]["conversion_rates"]["USD"];
 };

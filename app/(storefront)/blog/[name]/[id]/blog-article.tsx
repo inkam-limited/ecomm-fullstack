@@ -3,9 +3,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Facebook, Linkedin, Twitter } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { BlogPostWithCreator } from "./page";
 import { JSONContent } from "@tiptap/react";
+import ShareLInks from "./ShareLInks";
+
 export default function BlogArticle({ post }: { post: BlogPostWithCreator }) {
   return (
     <div className="flex flex-col min-h-screen">
@@ -70,36 +71,10 @@ export default function BlogArticle({ post }: { post: BlogPostWithCreator }) {
         <section className="py-12">
           <div className="container max-w-3xl px-4">
             <h2 className="text-2xl font-bold mb-4">Share this article</h2>
-            <div className="flex space-x-4">
-              <Button variant="outline">
-                <Twitter className="mr-2 h-4 w-4" />
-                Twitter
-              </Button>
-              <Button variant="outline">
-                <Facebook className="mr-2 h-4 w-4" />
-                Facebook
-              </Button>
-              <Button variant="outline">
-                <Linkedin className="mr-2 h-4 w-4" />
-                LinkedIn
-              </Button>
-            </div>
+            <ShareLInks />
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          © 2024 Creative Blog. All rights reserved.
-        </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-        </nav>
-      </footer>
     </div>
   );
 }

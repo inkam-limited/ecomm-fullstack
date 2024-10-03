@@ -25,11 +25,11 @@ const page = async () => {
     totalPrice += item.price * item.quantity;
   });
   return (
-    <div>
+    <div className="max-w-3xl mx-auto py-8">
       <Card className="px-8 py-4 container mx-auto">
         <h2 className="text-2xl font-bold mb-4">Checkout Information Page</h2>
         <PaymentForm
-          amount={totalPrice}
+          total_amount={totalPrice}
           name={`${user.family_name} ${user.given_name}`}
           email={user.email!}
           userId={user.id}
