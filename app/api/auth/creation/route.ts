@@ -15,6 +15,7 @@ export async function GET() {
   let dbUser = await prisma.user.findUnique({
     where: {
       id: user.id,
+      email: user.email ? user.email : "",
     },
   });
 
@@ -34,6 +35,6 @@ export async function GET() {
   return NextResponse.redirect(
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : "https://shoe-marshal.vercel.app/"
+      : "https://inkam-ux-852558420668.asia-southeast1.run.app"
   );
 }
