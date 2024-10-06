@@ -19,8 +19,8 @@ const BlogSection = async () => {
   return (
     <div className="mb-16">
       <div className="py-4 flex items-center justify-between w-full container mx-auto px-4">
-        <h2 className="text-xl font-semibold">Latest Blog Posts</h2>
-        <Link href="/blog" className="inline-flex items-center ">
+        <h2 className="font-semibold">Latest Blog Posts</h2>
+        <Link href="/blog" className="inline-flex text-sm items-center ">
           View all posts
           <svg
             className="ml-1 h-4 w-4"
@@ -47,7 +47,7 @@ const BlogSection = async () => {
           {posts.map((post) => (
             <CarouselItem
               key={post.id}
-              className="basis-1/2 md:basis-1/3 pl-4 lg:basis-1/4 rounded-lg"
+              className="basis-full sm:basis-1/2 md:basis-1/3 pl-4 lg:basis-1/4 rounded-lg"
             >
               <div className="p-4 bg-slate-100 h-full flex flex-col justify-between">
                 <div className="w-full relative aspect-w-7 aspect-h-5 rounded-lg bg-gradient-to-br from-slate-500/50 to-blue-500/50 via-red-500/50 backdrop-blur-3xl">

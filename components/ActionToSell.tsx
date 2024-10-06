@@ -20,7 +20,10 @@ const ActionToSell = () => {
           <Button variant="outline">Become an affiliate</Button>
         </div>
       </div>
-      <Video src="https://www.youtube.com/watch?v=3uA1yMnaS2I" />
+      <Video
+        className="aspect-video rounded-lg overflow-hidden"
+        src="https://www.youtube.com/watch?v=3uA1yMnaS2I"
+      />
     </div>
   );
 };

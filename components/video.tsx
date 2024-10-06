@@ -2,7 +2,7 @@
 import React from "react";
 import ReactPlayer from "react-player/lazy";
 
-export function Video({ src }: { src: string }) {
+export function Video({ src, className }: { src: string; className?: string }) {
   const [isReady, setIsReady] = React.useState(false);
 
   React.useEffect(() => {
@@ -14,7 +14,8 @@ export function Video({ src }: { src: string }) {
       <ReactPlayer
         url={src}
         controls={true}
-        className="aspect-h-9 aspect-w-16"
+        className={className}
+        width="100%"
       />
     )
   );

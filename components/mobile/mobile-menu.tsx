@@ -65,7 +65,7 @@ const MobileMenu = ({
               </div>
             ) : (
               <div className="flex md:flex-1 md:items-center md:justify-end md:space-x-2 py-4">
-                <Button variant="default" asChild>
+                <Button variant="outline" asChild>
                   <LoginLink>Sign in</LoginLink>
                 </Button>
                 <span className="h-6 w-px bg-gray-200"></span>

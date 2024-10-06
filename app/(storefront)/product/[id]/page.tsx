@@ -10,6 +10,9 @@ import ProductDescription from "@/components/ProductDescription";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
+import AddToCartButton from "@/components/storefront/add-to-cart-button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 async function getData(productId: string, userId: string | null) {
   const data = await prisma.product.findUnique({
@@ -58,7 +61,6 @@ export default async function ProductIdRoute({
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const data = await getData(params.id, user?.id || null);
-  const addProductToShoppingCart = addItem.bind(null, data.id);
 
   return (
     <>
@@ -76,19 +78,20 @@ export default async function ProductIdRoute({
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
           </div>
-          <div className="w-full mt-6">
-            <ProductDescription content={data?.description as JSONContent} />
-          </div>
 
           <div className="mt-6 space-y-4">
-            <form action={addProductToShoppingCart}>
+            {/* <form action={addProductToShoppingCart}>
               <ShoppingBagButton />
-            </form>
+            </form> */}
+            <AddToCartButton id={data.id} />
 
             {data.hasOrdered && data.productFileLink && (
               <Link
                 href={data.productFileLink}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className={cn(
+                  buttonVariants({ variant: "secondary" }),
+                  "w-full"
+                )}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download Product
@@ -96,17 +99,25 @@ export default async function ProductIdRoute({
             )}
 
             {data.hasOrdered && (
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-green-600">
                 You already own this product. Feel free to purchase again or
                 download if available.
               </p>
             )}
+
+            <div className="w-full mt-6">
+              <ProductDescription content={data?.description as JSONContent} />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-16 container mx-auto">
-        <ProductCardDisplay title="Featured Products" link="/featured" />
+      <div className="container mx-auto">
+        <ProductCardDisplay
+          limit={4}
+          title="Featured Products"
+          link="/featured"
+        />
       </div>
     </>
   );

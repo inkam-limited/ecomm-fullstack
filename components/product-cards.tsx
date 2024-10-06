@@ -32,11 +32,14 @@ export type ProductWithIncludes = {
 const ProductCardDisplay = async ({
   title = "Products from Featured Shops",
   link,
+  limit,
 }: {
   title?: string;
   link: string;
+  limit?: number;
 }) => {
   const products = await prisma.product.findMany({
+    take: limit,
     include: {
       createdBy: {
         select: {
