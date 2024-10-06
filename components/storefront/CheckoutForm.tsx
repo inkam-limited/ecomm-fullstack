@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { PaymentSchema } from "@/lib/zodSchemas";
 import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export const PaymentForm = ({
@@ -44,9 +45,14 @@ export const PaymentForm = ({
       cus_name: name,
       cus_email: email,
       cus_phone: "01865048207",
+      cus_add1: "",
+      cus_add2: "",
+      cus_city: "",
+      cus_country: "Bangladesh",
       desc: "Merchant payment",
       amount: Number(total_amount),
       currency: "BDT",
+      paid_amount: Number(total_amount),
     },
   });
 
@@ -77,6 +83,11 @@ export const PaymentForm = ({
     formData.append("amount", data.amount.toString());
     formData.append("desc", data.desc);
     formData.append("currency", data.currency);
+    formData.append("paid_amount", data.paid_amount.toString());
+    formData.append("cus_add1", data.cus_add1);
+    formData.append("cus_add2", data.cus_add2);
+    formData.append("cus_city", data.cus_city);
+    formData.append("cus_country", data.cus_country);
 
     try {
       await createPayment(null, formData);
@@ -86,84 +97,75 @@ export const PaymentForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="cus_name" className="text-right uppercase">
-            Name
-          </Label>
-          <Input
-            id="cus_name"
-            {...register("cus_name")}
-            className="col-span-3"
-          />
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="cus_name">Name</Label>
+          <Input id="cus_name" {...register("cus_name")} />
           {errors.cus_name && (
-            <p className="col-span-4 text-red-500">{errors.cus_name.message}</p>
+            <p className="text-sm text-red-500">{errors.cus_name.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="cus_email" className="text-right uppercase">
-            Email
-          </Label>
-          <Input
-            id="cus_email"
-            {...register("cus_email")}
-            className="col-span-3"
-          />
+        <div className="space-y-2">
+          <Label htmlFor="cus_email">Email</Label>
+          <Input id="cus_email" type="email" {...register("cus_email")} />
           {errors.cus_email && (
-            <p className="col-span-4 text-red-500">
-              {errors.cus_email.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.cus_email.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="cus_phone" className="text-right uppercase">
-            Phone
-          </Label>
-          <Input
-            id="cus_phone"
-            type="number"
-            {...register("cus_phone")}
-            className="col-span-3"
-          />
+        <div className="space-y-2">
+          <Label htmlFor="cus_phone">Phone</Label>
+          <Input id="cus_phone" {...register("cus_phone")} />
           {errors.cus_phone && (
-            <p className="col-span-4 text-red-500">
-              {errors.cus_phone.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.cus_phone.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="amount" className="text-right uppercase">
-            Amount
-          </Label>
-          <div className="flex items-center gap-x-2">
-            <span>
-              <span className="text-muted-foreground text-sm ">&#2547;</span>
-            </span>
-            <Input
-              disabled
-              type="number"
-              {...register("amount")}
-              className="col-span-3 font-bold border-none"
-            />
-          </div>
+        <div className="space-y-2">
+          <Label htmlFor="cus_add1">Address Line 1</Label>
+          <Input id="cus_add1" {...register("cus_add1")} />
+          {errors.cus_add1 && (
+            <p className="text-sm text-red-500">{errors.cus_add1.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cus_add2">Address Line 2 (Optional)</Label>
+          <Input id="cus_add2" {...register("cus_add2")} />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cus_city">City</Label>
+          <Input id="cus_city" {...register("cus_city")} />
+          {errors.cus_city && (
+            <p className="text-sm text-red-500">{errors.cus_city.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cus_country">Country</Label>
+          <Input id="cus_country" {...register("cus_country")} />
+          {errors.cus_country && (
+            <p className="text-sm text-red-500">{errors.cus_country.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="amount">Amount</Label>
+          <Input
+            disabled
+            id="amount"
+            type="text"
+            {...register("amount", { valueAsNumber: true })}
+          />
           {errors.amount && (
-            <p className="col-span-4 text-red-500">{errors.amount.message}</p>
+            <p className="text-sm text-red-500">{errors.amount.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="desc" className="text-right uppercase">
-            Description
-          </Label>
-          <Input id="desc" {...register("desc")} className="col-span-3" />
+        <div className="space-y-2">
+          <Label htmlFor="desc">Description</Label>
+          <Input id="desc" {...register("desc")} />
           {errors.desc && (
-            <p className="col-span-4 text-red-500">{errors.desc.message}</p>
+            <p className="text-sm text-red-500">{errors.desc.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-4 items-center gap-4 text-center">
-          <Label htmlFor="currency" className="text-right uppercase">
-            Currency
-          </Label>
+        <div className="space-y-2">
+          <Label htmlFor="currency">Currency</Label>
           <Controller
             name="currency"
             control={control}
@@ -180,31 +182,20 @@ export const PaymentForm = ({
             )}
           />
           {errors.currency && (
-            <p className="col-span-4 text-red-500">{errors.currency.message}</p>
-          )}
-        </div>
-        <div className="flex justify-end mt-4">
-          {isSubmitting || isSubmitSuccessful ? (
-            <Button
-              variant="default"
-              className="flex w-full  items-center justify-center"
-            >
-              <RotatingLines
-                visible={true}
-                strokeColor="#fff"
-                width="20"
-                strokeWidth="5"
-                animationDuration="0.75"
-                ariaLabel="rotating-lines-loading"
-              />
-            </Button>
-          ) : (
-            <Button className="w-full" variant="default" type="submit">
-              Submit Payment
-            </Button>
+            <p className="text-sm text-red-500">{errors.currency.message}</p>
           )}
         </div>
       </div>
+      <Button className="w-full" type="submit" disabled={isSubmitting}>
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Processing
+          </>
+        ) : (
+          "Submit Payment"
+        )}
+      </Button>
     </form>
   );
 };

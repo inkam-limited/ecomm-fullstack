@@ -16,6 +16,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.ui8.net",
       },
+      {
+        protocol: "https",
+        hostname: "tint.creativemarket.com",
+      },
     ],
   },
 };

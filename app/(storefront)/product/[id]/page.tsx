@@ -2,14 +2,16 @@ import { addItem } from "@/app/actions";
 import { ShoppingBagButton } from "@/components/SubmitButtons";
 import { ImageSlider } from "@/components/storefront/ImageSlider";
 import { JSONContent } from "@tiptap/react";
-import { StarIcon } from "lucide-react";
+import { StarIcon, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import ProductCardDisplay from "@/components/product-cards";
 import ProductDescription from "@/components/ProductDescription";
 import prisma from "@/lib/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
 
-async function getData(productId: string) {
+async function getData(productId: string, userId: string | null) {
   const data = await prisma.product.findUnique({
     where: {
       id: productId,
@@ -20,6 +22,7 @@ async function getData(productId: string) {
       description: true,
       name: true,
       id: true,
+      productFileLink: true,
     },
   });
 
@@ -27,7 +30,23 @@ async function getData(productId: string) {
     return notFound();
   }
 
-  return data;
+  let hasOrdered = false;
+  if (userId) {
+    const order = await prisma.order.findFirst({
+      where: {
+        userId: userId,
+        status: "paid",
+        OrderItem: {
+          some: {
+            productId: productId,
+          },
+        },
+      },
+    });
+    hasOrdered = order !== null;
+  }
+
+  return { ...data, hasOrdered };
 }
 
 export default async function ProductIdRoute({
@@ -36,8 +55,11 @@ export default async function ProductIdRoute({
   params: { id: string };
 }) {
   noStore();
-  const data = await getData(params.id);
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  const data = await getData(params.id, user?.id || null);
   const addProductToShoppingCart = addItem.bind(null, data.id);
+
   return (
     <>
       <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-8 items-start py-6">
@@ -58,9 +80,28 @@ export default async function ProductIdRoute({
             <ProductDescription content={data?.description as JSONContent} />
           </div>
 
-          <form action={addProductToShoppingCart}>
-            <ShoppingBagButton />
-          </form>
+          <div className="mt-6 space-y-4">
+            <form action={addProductToShoppingCart}>
+              <ShoppingBagButton />
+            </form>
+
+            {data.hasOrdered && data.productFileLink && (
+              <Link
+                href={data.productFileLink}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download Product
+              </Link>
+            )}
+
+            {data.hasOrdered && (
+              <p className="text-sm text-gray-600">
+                You already own this product. Feel free to purchase again or
+                download if available.
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

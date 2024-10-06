@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 async function getData() {
   const data = await prisma.order.findMany({
     select: {
+      paidAmount: true,
       amount: true,
       id: true,
       User: {
@@ -47,7 +48,7 @@ export async function RecentSales() {
               </p>
             </div>
             <p className="ml-auto font-medium">
-              + &#2547; {new Intl.NumberFormat("bn-BD").format(item.amount)}
+              + &#2547; {new Intl.NumberFormat("bn-BD").format(item.paidAmount)}
             </p>
           </div>
         ))}

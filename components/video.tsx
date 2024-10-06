@@ -14,7 +14,7 @@ export function Video({ src }: { src: string }) {
       <ReactPlayer
         url={src}
         controls={true}
-        className=" md:basis-2/3 w-full lg:basis-1/2"
+        className="aspect-h-9 aspect-w-16"
       />
     )
   );

@@ -49,7 +49,9 @@ model Product {
   createdById     String?
   reviews         Review[]
 
-  createdAt DateTime @default(now())
+  // Orders
+  createdAt DateTime    @default(now())
+  OrderItem OrderItem[]
 }
 
 model Review {
@@ -75,11 +77,25 @@ model Order {
   status        OrderStatus @default(pending) // Order status (e.g., pending, paid, cancelled)
   amount        Int // Total order amount
   transactionId String      @unique // Transaction ID from the payment gateway
-  payStatus     String // Payment status from the callback (e.g., success, failure)
+  payStatus     String
+  paidAmount    Int         @default(0)
 
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+  User      User        @relation(fields: [userId], references: [id])
   userId    String
+  productId String?
+  OrderItem OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  quantity  Int
+  price     Int
+  productId String
+  orderId   String
+  createdAt DateTime @default(now())
+  Order     Order    @relation(fields: [orderId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
 }
 
 enum OrderStatus {

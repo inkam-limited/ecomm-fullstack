@@ -6,17 +6,76 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Cart } from "@/lib/interfaces";
+import {
+  getKindeServerSession,
+  LoginLink,
+  RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs/server";
+import { KindeUserProperties } from "@kinde-oss/kinde-auth-nextjs/types";
 import { Category } from "@prisma/client";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, ShoppingBagIcon } from "lucide-react";
 import Link from "next/link";
+import { UserDropdown } from "../storefront/UserDropdown";
+import { Button } from "../ui/button";
 
-const MobileMenu = ({ categories }: { categories: Category[] }) => {
+const MobileMenu = ({
+  categories,
+  user,
+  cart,
+  total,
+}: {
+  categories: Category[];
+  user: KindeUserProperties | null;
+  cart: Cart | null;
+  total: number;
+}) => {
   return (
     <Sheet>
       <SheetTrigger>
         <MenuIcon className="w-6 h-6" />
       </SheetTrigger>
       <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>Account</SheetTitle>
+        </SheetHeader>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center">
+            {user ? (
+              <div className="flex items-center gap-4">
+                <div className="p-2 flex items-center gap-2">
+                  <UserDropdown
+                    email={user.email as string}
+                    name={user.given_name as string}
+                    userImage={
+                      user.picture ??
+                      `https://avatar.vercel.sh/${user.given_name}`
+                    }
+                  />
+                  <span>{user.given_name}</span>
+                </div>
+                <Link href="/bag" className="group p-2 flex items-center gap-2">
+                  <ShoppingBagIcon className="h-6 w-6 text-gray-400 group-hover:text-gray-500" />
+                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                    {total}
+                  </span>
+                  <span className="">Cart</span>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex md:flex-1 md:items-center md:justify-end md:space-x-2 py-4">
+                <Button variant="default" asChild>
+                  <LoginLink>Sign in</LoginLink>
+                </Button>
+                <span className="h-6 w-px bg-gray-200"></span>
+                <Button variant="ghost" asChild>
+                  <RegisterLink>Create Account</RegisterLink>
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
         <SheetHeader>
           <SheetTitle>Categories</SheetTitle>
         </SheetHeader>

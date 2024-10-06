@@ -18,7 +18,7 @@ async function getData() {
 
     prisma.order.findMany({
       select: {
-        amount: true,
+        paidAmount: true,
       },
     }),
   ]);
@@ -33,8 +33,8 @@ async function getData() {
 export async function DashboardStats() {
   const { products, user, order } = await getData();
 
-  const totalAmount = order.reduce((accumalator, currentValue) => {
-    return accumalator + currentValue.amount;
+  const totalAmount = order.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.paidAmount;
   }, 0);
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

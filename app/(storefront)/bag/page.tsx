@@ -18,7 +18,7 @@ export default async function BagRoute() {
   const user = await getUser();
 
   if (!user) {
-    redirect("/");
+    redirect("api/auth/login");
   }
 
   const cart: Cart | null = await redis.get(`cart-${user.id}`);
@@ -28,7 +28,6 @@ export default async function BagRoute() {
   cart?.items.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
-  console.log(cart?.items);
 
   return (
     <div className="max-w-7xl mx-auto mt-10 min-h-[70vh]">

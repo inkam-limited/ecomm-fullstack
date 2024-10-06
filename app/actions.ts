@@ -299,6 +299,7 @@ export async function createPayment(prevState: any, formData: FormData) {
       payStatus: "pending",
       transactionId: transactionId,
       userId: userId, // Make sure userId is correct
+      paidAmount: Number(parsedData.paid_amount),
     },
   });
 
@@ -312,10 +313,10 @@ export async function createPayment(prevState: any, formData: FormData) {
     store_id: process.env.STORE_ID,
     currency: parsedData.currency,
     desc: parsedData.desc,
-    cus_add1: "53, Gausul Azam Road, Sector-14, Dhaka, Bangladesh",
-    cus_add2: "Dhaka",
-    cus_city: "Dhaka",
-    cus_country: "Bangladesh",
+    cus_add1: parsedData.cus_add1,
+    cus_add2: parsedData.cus_add2,
+    cus_city: parsedData.cus_city,
+    cus_country: parsedData.cus_country,
     success_url: `${process.env.BASE_URL}/api/callback?transactionId=${transactionId}`,
     fail_url: `${process.env.BASE_URL}/api/callback?transactionId=${transactionId}`,
     cancel_url: `${process.env.BASE_URL}/api/callback?transactionId=${transactionId}`,

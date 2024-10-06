@@ -1,4 +1,5 @@
 import prisma from "@/lib/db";
+import { Cart } from "@/lib/interfaces";
 import { redis } from "@/lib/redis";
 
 import { redirect } from "next/navigation";
@@ -32,7 +33,29 @@ export async function POST(request: NextRequest) {
       status: pay_status === "Successful" ? "paid" : "pending",
     },
   });
-  await redis.del(`cart-${order.userId}`);
+  let cart: Cart | null = await redis.get(`cart-${order.userId}`);
 
+  const updateOrderItems = cart?.items.map((item) => {
+    return {
+      quantity: item.quantity,
+      price: item.price,
+      productId: item.id,
+    };
+  });
+  if (updateOrderItems) {
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        OrderItem: {
+          // Changed from 'OrderItem' to 'orderItems'
+          create: updateOrderItems,
+        },
+      },
+    });
+  }
+
+  await redis.del(`cart-${order.userId}`);
   redirect(`/payment/success?orderId=${order.id}`);
 }

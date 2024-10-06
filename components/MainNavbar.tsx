@@ -28,7 +28,14 @@ const MainNavbar = async () => {
   return (
     <nav className="flex flex-col container mx-auto px-4">
       <div className="flex w-full items-center justify-between mx-auto">
-        <MobileMenu categories={categories} />
+        <div className="flex-1">
+          <MobileMenu
+            categories={categories}
+            cart={cart}
+            total={total}
+            user={user}
+          />
+        </div>
 
         <Link href="/">
           <svg
@@ -49,7 +56,7 @@ const MainNavbar = async () => {
           </svg>
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex justify-end flex-1 items-center gap-4">
           <div className="flex items-center">
             {user ? (
               <>
