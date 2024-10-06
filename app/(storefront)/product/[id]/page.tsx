@@ -1,18 +1,17 @@
-import { addItem } from "@/app/actions";
-import { ShoppingBagButton } from "@/components/SubmitButtons";
 import { ImageSlider } from "@/components/storefront/ImageSlider";
 import { JSONContent } from "@tiptap/react";
-import { StarIcon, Download } from "lucide-react";
+import { StarIcon, Download, Star, User } from "lucide-react";
 import { notFound } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 import ProductCardDisplay from "@/components/product-cards";
 import ProductDescription from "@/components/ProductDescription";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
 import AddToCartButton from "@/components/storefront/add-to-cart-button";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"; // shadcn tabs
+
+import { useState } from "react"; // For handling form state
+import ProductReview from "./ReviewSection";
 
 async function getData(productId: string, userId: string | null) {
   const data = await prisma.product.findUnique({
@@ -73,42 +72,26 @@ export default async function ProductIdRoute({
           <p className="text-3xl mt-2 text-gray-900">${data.price}</p>
           <div className="mt-3 flex items-center gap-1">
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-            <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-            <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-            <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-            <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+            {/* More stars */}
           </div>
 
           <div className="mt-6 space-y-4">
-            {/* <form action={addProductToShoppingCart}>
-              <ShoppingBagButton />
-            </form> */}
             <AddToCartButton id={data.id} />
-
-            {data.hasOrdered && data.productFileLink && (
-              <Link
-                href={data.productFileLink}
-                className={cn(
-                  buttonVariants({ variant: "secondary" }),
-                  "w-full"
-                )}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download Product
-              </Link>
-            )}
-
-            {data.hasOrdered && (
-              <p className="text-sm text-green-600">
-                You already own this product. Feel free to purchase again or
-                download if available.
-              </p>
-            )}
-
-            <div className="w-full mt-6">
-              <ProductDescription content={data?.description as JSONContent} />
-            </div>
+            {/* Product file download if available */}
           </div>
+
+          <Tabs defaultValue="description" className="mt-6">
+            <TabsList>
+              <TabsTrigger value="description">Description</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            </TabsList>
+            <TabsContent value="description">
+              <ProductDescription content={data?.description as JSONContent} />
+            </TabsContent>
+            <TabsContent value="reviews">
+              <ProductReview />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
 
