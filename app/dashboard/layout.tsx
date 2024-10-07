@@ -75,7 +75,7 @@ export default async function DashboardLayout({
           </div>
         </div>
       </header>
-      <main className="my-5">{children}</main>
+      <main className="my-5 container mx-auto">{children}</main>
     </>
   );
 }
