@@ -12,6 +12,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 import { useState } from "react"; // For handling form state
 import ProductReview from "./ReviewSection";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 async function getData(productId: string, userId: string | null) {
   const data = await prisma.product.findUnique({
@@ -69,7 +72,7 @@ export default async function ProductIdRoute({
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
             {data.name}
           </h1>
-          <p className="text-3xl mt-2 text-gray-900">${data.price}</p>
+          <p className="text-3xl mt-2 text-gray-900">&#2547;{data.price}</p>
           <div className="mt-3 flex items-center gap-1">
             <StarIcon className="h-4 w-4 text-yellow-500 fill-yellow-500" />
             {/* More stars */}
@@ -79,6 +82,23 @@ export default async function ProductIdRoute({
             <AddToCartButton id={data.id} />
             {/* Product file download if available */}
           </div>
+          {data.hasOrdered && (
+            <div className="mt-4 space-y-4">
+              <Link
+                className={cn(
+                  buttonVariants({ variant: "secondary" }),
+                  "w-full"
+                )}
+                href={data.productFileLink!}
+              >
+                <Download className="mr-2" />
+                Download File
+              </Link>
+              <p className=" text-green-500">
+                You have already purchased this product
+              </p>
+            </div>
+          )}
 
           <Tabs defaultValue="description" className="mt-6">
             <TabsList>

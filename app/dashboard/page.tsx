@@ -22,6 +22,7 @@ async function getData() {
       createdAt: {
         gte: sevenDaysAgo,
       },
+      status: "paid",
     },
     select: {
       createdAt: true,
@@ -33,7 +34,7 @@ async function getData() {
   });
 
   const result = data.map((item) => ({
-    date: new Intl.DateTimeFormat("en-US").format(item.createdAt),
+    date: new Intl.DateTimeFormat("bn-BD").format(item.createdAt),
     revenue: item.paidAmount,
   }));
 

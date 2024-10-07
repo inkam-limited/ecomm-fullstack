@@ -52,7 +52,7 @@ export default function ProductReview() {
                 <Star
                   key={star}
                   className={cn("w-6 h-6 cursor-pointer", {
-                    "fill-primary text-primary": star <= rating,
+                    "fill-yellow-500 text-yellow-500": star <= rating,
                     "text-gray-300": star > rating,
                   })}
                   onClick={() => setRating(star)}
@@ -87,7 +87,7 @@ export default function ProductReview() {
                       <Star
                         key={i}
                         className={cn("w-4 h-4", {
-                          "fill-primary text-primary": i < review.rating,
+                          "fill-yellow-500 text-yellow-500": i < review.rating,
                           "text-gray-300": i >= review.rating,
                         })}
                       />
