@@ -7,7 +7,7 @@ const ProductCard = ({ product }: { product: ProductWithIncludes }) => {
   return (
     <Link
       href={`/product/${product.id}`}
-      className="w-[calc(50%-.5rem)] md:w-[calc(25%-.5rem)] text-slate-900"
+      className="w-[calc(50%-.75rem)] md:w-[calc(25%-.75rem)] text-slate-900"
     >
       <div className="w-full relative aspect-w-7 aspect-h-5 rounded-lg">
         <Image

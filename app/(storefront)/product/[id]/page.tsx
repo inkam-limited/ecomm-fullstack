@@ -119,7 +119,7 @@ export default async function ProductIdRoute({
               <ProductDescription content={data?.description as JSONContent} />
             </TabsContent>
             <TabsContent value="reviews">
-              <ProductReview />
+              <ProductReview productId={data.id} />
             </TabsContent>
           </Tabs>
         </div>

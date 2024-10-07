@@ -8,7 +8,7 @@ export default async function ProductList({
 }) {
   return (
     <>
-      <div className="flex flex-wrap space-y-3 items-baseline justify-between">
+      <div className="flex flex-wrap space-y-3 items-baseline justify-start gap-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

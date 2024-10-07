@@ -11,7 +11,7 @@ const HomePage = async () => {
 
   return (
     <>
-      <div className="container px-4 pb-24">
+      <div className="container px-4 pb-8">
         <CategoryBar />
         <BannerCard banner={productBanner[1]!} />
         <h1 className="text-3xl lg:text-5xl text-center font-bold py-12 lg:py-24">
