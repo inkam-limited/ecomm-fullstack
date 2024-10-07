@@ -101,9 +101,19 @@ export default async function ProductIdRoute({
           )}
 
           <Tabs defaultValue="description" className="mt-6">
-            <TabsList>
-              <TabsTrigger value="description">Description</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsList className="w-full grid grid-cols-2 my-4 gap-4 bg-white">
+              <TabsTrigger
+                className="data-[state=active]:border-b-2 data-[state=active]:border-b-blue-600"
+                value="description"
+              >
+                Description
+              </TabsTrigger>
+              <TabsTrigger
+                className="data-[state=active]:border-b-2 data-[state=active]:border-b-blue-600"
+                value="reviews"
+              >
+                Reviews
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="description">
               <ProductDescription content={data?.description as JSONContent} />
