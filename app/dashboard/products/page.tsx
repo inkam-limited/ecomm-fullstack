@@ -84,9 +84,11 @@ export default async function ProductsRoute() {
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.status}</TableCell>
-                  <TableCell>${item.price}</TableCell>
                   <TableCell>
-                    {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                    &#2547;{item.price.toLocaleString("bn-BD")}
+                  </TableCell>
+                  <TableCell>
+                    {new Intl.DateTimeFormat("bn-BD").format(item.createdAt)}
                   </TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>

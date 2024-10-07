@@ -15,11 +15,13 @@ import {
 } from "@/components/ui/table";
 import prisma from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
+import Link from "next/link";
 
 async function getData() {
   const data = await prisma.order.findMany({
     select: {
-      amount: true,
+      transactionId: true,
+      paidAmount: true,
       createdAt: true,
       status: true,
       id: true,
@@ -71,10 +73,18 @@ export default async function OrdersPage() {
                 <TableCell>Order</TableCell>
                 <TableCell>{item.status}</TableCell>
                 <TableCell>
-                  {new Intl.DateTimeFormat("en-US").format(item.createdAt)}
+                  {new Intl.DateTimeFormat("bn-BD").format(item.createdAt)}
                 </TableCell>
                 <TableCell className="text-right">
-                  BDT {new Intl.NumberFormat("en-US").format(item.amount)}
+                  BDT {new Intl.NumberFormat("bn-BD").format(item.paidAmount)}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Link
+                    href={`/dashboard/orders/${item.transactionId}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    View
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
