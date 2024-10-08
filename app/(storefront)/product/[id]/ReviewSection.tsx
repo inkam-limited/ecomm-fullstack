@@ -31,7 +31,7 @@ export default async function ProductReview({
   });
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto border-0">
       <CardHeader>
         <CardTitle>Product Reviews</CardTitle>
         <CardDescription>
@@ -47,7 +47,7 @@ export default async function ProductReview({
           ) : null}
           {productReviews.length > 0 &&
             productReviews.map((review) => (
-              <Card key={review.id}>
+              <Card className="border-0" key={review.id}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
@@ -57,7 +57,9 @@ export default async function ProductReview({
                             {review.createdBy?.firstName.split("")[0]}
                           </AvatarFallback>
                         </Avatar>{" "}
-                        <p className="ml-2">{review.createdBy?.firstName}</p>
+                        <p className="ml-2 text-sm">
+                          {review.createdBy?.firstName}
+                        </p>
                       </span>
                     </div>
                     <div className="flex items-center">
@@ -75,7 +77,7 @@ export default async function ProductReview({
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p>{review.comment}</p>
+                  <p className="text-sm">{review.comment}</p>
                 </CardContent>
                 <CardFooter>
                   <p className="text-sm text-muted-foreground">
