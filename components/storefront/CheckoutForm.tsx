@@ -19,6 +19,7 @@ import {
 import { PaymentSchema } from "@/lib/zodSchemas";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export const PaymentForm = ({
@@ -38,17 +39,18 @@ export const PaymentForm = ({
     watch,
     setValue,
     getValues,
+
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<PaymentFormData>({
     resolver: zodResolver(PaymentSchema),
     defaultValues: {
       cus_name: name,
       cus_email: email,
-      cus_phone: "01865048207",
+      cus_phone: "",
       cus_add1: "",
       cus_add2: "",
       cus_city: "",
-      cus_country: "Bangladesh",
+      cus_country: "",
       desc: "Merchant payment",
       amount: Number(total_amount),
       currency: "BDT",
@@ -101,52 +103,82 @@ export const PaymentForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="cus_name">Name</Label>
-          <Input id="cus_name" {...register("cus_name")} />
+          <Input
+            id="cus_name"
+            placeholder="John Doe"
+            {...register("cus_name")}
+          />
           {errors.cus_name && (
             <p className="text-sm text-red-500">{errors.cus_name.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_email">Email</Label>
-          <Input id="cus_email" type="email" {...register("cus_email")} />
+          <Input
+            id="cus_email"
+            placeholder="yourname@example.com"
+            type="email"
+            {...register("cus_email")}
+          />
           {errors.cus_email && (
             <p className="text-sm text-red-500">{errors.cus_email.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_phone">Phone</Label>
-          <Input id="cus_phone" {...register("cus_phone")} />
+          <Input
+            id="cus_phone"
+            placeholder="+xxxxxxxxxxxxx"
+            {...register("cus_phone")}
+          />
           {errors.cus_phone && (
             <p className="text-sm text-red-500">{errors.cus_phone.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_add1">Address Line 1</Label>
-          <Input id="cus_add1" {...register("cus_add1")} />
+          <Input
+            placeholder="Al Meel St."
+            id="cus_add1"
+            {...register("cus_add1")}
+          />
           {errors.cus_add1 && (
             <p className="text-sm text-red-500">{errors.cus_add1.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_add2">Address Line 2 (Optional)</Label>
-          <Input id="cus_add2" {...register("cus_add2")} />
+          <Input
+            id="cus_add2"
+            placeholder="Apt. #123"
+            {...register("cus_add2")}
+          />
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_city">City</Label>
-          <Input id="cus_city" {...register("cus_city")} />
+          <Input
+            id="cus_city"
+            placeholder="Abu Dhabi"
+            {...register("cus_city")}
+          />
           {errors.cus_city && (
             <p className="text-sm text-red-500">{errors.cus_city.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="cus_country">Country</Label>
-          <Input id="cus_country" {...register("cus_country")} />
+          <Input
+            id="cus_country"
+            placeholder="United Arab Emirates"
+            {...register("cus_country")}
+          />
           {errors.cus_country && (
             <p className="text-sm text-red-500">{errors.cus_country.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="amount">Amount</Label>
+          <Badge className="ml-2"> {selectedCurrency} </Badge>
           <Input
             disabled
             id="amount"
@@ -159,7 +191,7 @@ export const PaymentForm = ({
         </div>
         <div className="space-y-2">
           <Label htmlFor="desc">Description</Label>
-          <Input id="desc" {...register("desc")} />
+          <Input id="desc" disabled {...register("desc")} />
           {errors.desc && (
             <p className="text-sm text-red-500">{errors.desc.message}</p>
           )}

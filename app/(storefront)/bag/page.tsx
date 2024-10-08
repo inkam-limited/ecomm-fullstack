@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Cart } from "@/lib/interfaces";
 import { redis } from "@/lib/redis";
-
+import ShoppingBagCard from "./ShoppingBagCard";
 export default async function BagRoute() {
   noStore();
   const { getUser } = getKindeServerSession();
@@ -50,63 +50,7 @@ export default async function BagRoute() {
           </Button>
         </div>
       ) : (
-        <div className="grid lg:grid-cols-4 gap-y-10 min-h-[70vh]">
-          <div className="lg:col-span-1 w-full h-full relative hidden lg:block">
-            <Image
-              fill
-              alt="checkout"
-              src="/checkout.jpg"
-              className="object-contain"
-            />
-          </div>
-          <div className="lg:col-span-3 flex flex-col gap-y-10 p-10 lg:p-20 bg-white rounded-lg">
-            {cart?.items.map((item) => (
-              <div key={item.id} className="flex">
-                <div className="w-24 h-24 sm:w-32 sm:h-32 relative">
-                  <Image
-                    className="rounded-md object-cover"
-                    fill
-                    src={item.imageString}
-                    alt="Product image"
-                  />
-                </div>
-                <div className="ml-5 flex justify-between w-full font-medium">
-                  <p>{item.name}</p>
-                  <div className="flex flex-col h-full justify-between">
-                    <div className="flex items-center gap-x-2">
-                      <p>{item.quantity} x</p>
-                      <p>BDT {item.price}</p>
-                    </div>
-
-                    <form action={delItem} className="text-end">
-                      <input type="hidden" name="productId" value={item.id} />
-                      <DeleteItem />
-                    </form>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <div className="mt-10">
-              <div className="flex items-center justify-between font-medium">
-                <p>Subtotal:</p>
-                <p>
-                  &#2547;{new Intl.NumberFormat("bn-BD").format(totalPrice)}
-                </p>
-              </div>
-              {/* <PaymentForm amount={totalPrice} userId={user.id} /> */}
-
-              <Link
-                href="/checkout"
-                className={cn(
-                  buttonVariants({ variant: "default" }),
-                  "w-full mt-8"
-                )}
-              >
-                Proceed to Checkout <BadgeCheck className="size-6 ml-2" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        <ShoppingBagCard cart={cart} totalPrice={totalPrice} />
       )}
     </div>
   );
