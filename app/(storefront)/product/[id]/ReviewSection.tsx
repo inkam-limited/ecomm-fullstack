@@ -23,6 +23,10 @@ export default async function ProductReview({
     include: {
       createdBy: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 5,
   });
 
   return (

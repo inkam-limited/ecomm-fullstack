@@ -30,28 +30,30 @@ export default async function BagRoute() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto mt-10 min-h-[70vh]">
-      {!cart || !cart.items || cart.items.length === 0 ? (
-        <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-            <ShoppingBag className="w-10 h-10 text-primary" />
+    <div className=" py-12 bg-gradient-to-b from-indigo-400 to-violet-600 text-white">
+      <div className="max-w-3xl mx-auto mt-10 min-h-[70vh] ">
+        {!cart || !cart.items || cart.items.length === 0 ? (
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center mt-20">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+              <ShoppingBag className="w-10 h-10 text-primary" />
+            </div>
+
+            <h2 className="mt-6 text-xl font-semibold">
+              You dont have any products in your Bag
+            </h2>
+            <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
+              You currently dont have any products in your shopping bag. Please
+              add some so that you can see them right here.
+            </p>
+
+            <Button asChild>
+              <Link href="/">Shop Now!</Link>
+            </Button>
           </div>
-
-          <h2 className="mt-6 text-xl font-semibold">
-            You dont have any products in your Bag
-          </h2>
-          <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
-            You currently dont have any products in your shopping bag. Please
-            add some so that you can see them right here.
-          </p>
-
-          <Button asChild>
-            <Link href="/">Shop Now!</Link>
-          </Button>
-        </div>
-      ) : (
-        <ShoppingBagCard cart={cart} totalPrice={totalPrice} />
-      )}
+        ) : (
+          <ShoppingBagCard cart={cart} totalPrice={totalPrice} />
+        )}
+      </div>
     </div>
   );
 }

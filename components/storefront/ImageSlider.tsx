@@ -60,6 +60,7 @@ export function ImageSlider({ images }: iAppProps) {
             )}
             key={index}
             onClick={() => handleImageClick(index)}
+            onMouseOver={() => handleImageClick(index)}
           >
             <Image
               src={image}

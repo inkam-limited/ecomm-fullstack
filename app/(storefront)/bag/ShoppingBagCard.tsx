@@ -17,11 +17,11 @@ interface PageProps {
 
 const ShoppingBagCard: FC<PageProps> = ({ cart, totalPrice }) => {
   return (
-    <Card className="my-12 min-h-[70vh]">
-      <div className="flex flex-col gap-y-10 p-4 lg:p-20 bg-white rounded-lg">
+    <Card className="min-h-[70vh]">
+      <div className="flex flex-col gap-y-10 p-4 lg:p-8 bg-white rounded-2xl">
         {cart?.items.map((item) => (
           <div key={item.id} className="flex gap-4 items-center">
-            <div className="basis-1/4 aspect-video h-full lg:h-36  relative">
+            <div className="basis-2/6 md:basis-1/4  aspect-video h-24 lg:h-36  relative">
               <Image
                 className="rounded-md object-cover"
                 fill
@@ -51,7 +51,7 @@ const ShoppingBagCard: FC<PageProps> = ({ cart, totalPrice }) => {
             </div>
           </div>
         ))}
-        <div className="mt-10">
+        <div className="mt-10 border-t border-gray-500 pt-4">
           <div className="flex items-center justify-between font-medium">
             <p>Subtotal:</p>
             <p>&#2547;{new Intl.NumberFormat("bn-BD").format(totalPrice)}</p>

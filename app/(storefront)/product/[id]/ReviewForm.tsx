@@ -18,8 +18,8 @@ const ReviewForm = ({ productId }: { productId: string }) => {
       toast.error(res.message);
     }
   };
-  const [rating, setRating] = useState(2);
-  const [comment, setComment] = useState("Beautiful product");
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
