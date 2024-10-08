@@ -10,6 +10,7 @@ import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReviewForm from "./ReviewForm";
 import prisma from "@/lib/db";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default async function ProductReview({
   productId,
@@ -50,8 +51,13 @@ export default async function ProductReview({
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <span className="font-semibold">
-                        {review.createdBy?.firstName}
+                      <span className="font-semibold inline-flex items-center">
+                        <Avatar>
+                          <AvatarFallback>
+                            {review.createdBy?.firstName.split("")[0]}
+                          </AvatarFallback>
+                        </Avatar>{" "}
+                        <p className="ml-2">{review.createdBy?.firstName}</p>
                       </span>
                     </div>
                     <div className="flex items-center">
