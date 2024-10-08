@@ -31,7 +31,7 @@ export default async function ProductReview({
   });
 
   return (
-    <Card className="w-full max-w-2xl mx-auto border-0">
+    <Card className="w-full max-w-2xl mx-auto border-0 shadow-none">
       <CardHeader>
         <CardTitle>Product Reviews</CardTitle>
         <CardDescription>
@@ -47,7 +47,7 @@ export default async function ProductReview({
           ) : null}
           {productReviews.length > 0 &&
             productReviews.map((review) => (
-              <Card className="border-0" key={review.id}>
+              <Card key={review.id}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
