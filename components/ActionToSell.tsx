@@ -4,8 +4,8 @@ import { Video } from "./video";
 
 const ActionToSell = () => {
   return (
-    <div className="flex-col justify-between md:flex-row flex gap-8 items-stretch">
-      <div className="py-12 px-4 gap-4 lg:px-8 flex flex-col bg-gradient-to-br from-slate-900 via-emerald-500  to-indigo-900 rounded-lg basis-full">
+    <div className="flex-col justify-between md:flex-row flex gap-4 items-stretch">
+      <div className="py-12 px-4 gap-4 lg:px-8 flex flex-col bg-gradient-to-b from-indigo-400 to-violet-600 rounded-lg basis-full">
         <h2 className="font-semibold text-gray-50 text-3xl">
           Start Earning with Creative Market
         </h2>
