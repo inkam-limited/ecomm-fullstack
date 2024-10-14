@@ -37,6 +37,33 @@ export async function addReview(data: ReviewFormValue) {
       createdById: user.id,
     },
   });
+  // calculate average rating
+
+  const productReviews = await prisma.review.findMany({
+    where: {
+      productId: data.productId,
+    },
+    select: {
+      rating: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  await prisma.product.update({
+    where: {
+      id: data.productId,
+    },
+    data: {
+      averageRating:
+        productReviews.reduce((acc, review) => acc + review.rating, 0) /
+        productReviews.length,
+    },
+    include: {
+      reviews: true,
+    },
+  });
 
   if (!review) return { success: false, message: "Failed to create review" };
 

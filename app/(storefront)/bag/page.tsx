@@ -1,14 +1,9 @@
-import { delItem } from "@/app/actions";
-import { DeleteItem } from "@/components/SubmitButtons";
-
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { BadgeCheck, ShoppingBag } from "lucide-react";
-import Image from "next/image";
+import { ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { Cart } from "@/lib/interfaces";
 import { redis } from "@/lib/redis";
 import ShoppingBagCard from "./ShoppingBagCard";
@@ -31,7 +26,7 @@ export default async function BagRoute() {
 
   return (
     <div className=" py-12 bg-gradient-to-b from-indigo-400 to-violet-600 text-gray-900">
-      <div className="max-w-3xl mx-auto mt-10 min-h-[70vh] bg-gray-50 rounded-lg p-8">
+      <div className="max-w-3xl mx-auto mt-10 bg-gray-50 rounded-lg p-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Your Bag
@@ -58,7 +53,7 @@ export default async function BagRoute() {
             </p>
 
             <Button asChild>
-              <Link href="/">Shop Now!</Link>
+              <Link href="/products">Shop Now!</Link>
             </Button>
           </div>
         ) : (

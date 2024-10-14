@@ -41,6 +41,7 @@ model Product {
   description     Json
   status          ProductStatus
   price           Int
+  averageRating   Float?        @default(0.00)
   images          String[]
   category        Category[]
   isFeatured      Boolean       @default(false)

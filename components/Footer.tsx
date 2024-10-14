@@ -28,22 +28,20 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full py-8 md:py-16 bg-slate-100 text-slate-900">
+    <footer className="w-full py-8 md:py-8 bg-slate-50 text-slate-900">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="text-lg md:text-xl font-bold mb-4">
-              Creative Market
-            </h4>
-            <p className="text-sm md:text-base text-gray-800">
+            <h4 className="text-base font-bold mb-4">Creative Market</h4>
+            <p className="text-xs md:text-sm text-gray-800">
               Empowering creatives with high-quality design assets since 2012.
             </p>
             <div className="flex flex-col space-y-2">
               {contactInfo.map(({ Icon, info }, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-xs md:text-sm text-gray-800 break-all">
+                  <span className="text-xs md:text-xs text-gray-800 break-all">
                     {info}
                   </span>
                 </div>
@@ -53,13 +51,13 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg md:text-xl font-bold mb-4">Quick Links</h4>
+            <h4 className="text-base font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map(({ href, label }, index) => (
                 <li key={index}>
                   <Link
                     href={href}
-                    className="text-sm md:text-base text-gray-800 hover:text-primary transition-colors duration-200"
+                    className="text-xs md:text-sm text-gray-800 hover:text-primary transition-colors duration-200"
                   >
                     {label}
                   </Link>
@@ -70,13 +68,13 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h4 className="text-lg md:text-xl font-bold mb-4">Legal</h4>
+            <h4 className="text-base font-bold mb-4">Legal</h4>
             <ul className="space-y-2">
               {legalLinks.map(({ href, label }, index) => (
                 <li key={index}>
                   <Link
                     href={href}
-                    className="text-sm md:text-base text-gray-800 hover:text-primary transition-colors duration-200"
+                    className="text-xs md:text-sm text-gray-800 hover:text-primary transition-colors duration-200"
                   >
                     {label}
                   </Link>
@@ -87,10 +85,8 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-lg md:text-xl font-bold mb-4">
-              Stay Connected
-            </h4>
-            <p className="text-sm md:text-base text-gray-800 mb-4">
+            <h4 className="text-base font-bold mb-4">Stay Connected</h4>
+            <p className="text-xs md:text-sm text-gray-800 mb-4">
               Subscribe to our newsletter for updates and exclusive offers.
             </p>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -120,8 +116,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 md:mt-12 pt-4 md:pt-8 border-t border-gray-300 text-center">
-          <p className="text-xs md:text-sm text-gray-800">
+        <div className="mt-8 md:mt-12 pt-8 md:pt-8 border-t border-gray-300 text-center">
+          <p className="text-xs md:text-xs text-gray-800">
             © 2024 Creative Market. All rights reserved.
           </p>
         </div>

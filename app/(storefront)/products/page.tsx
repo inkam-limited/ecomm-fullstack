@@ -20,6 +20,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import prisma from "@/lib/db";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function ProductsPage({
   searchParams,
@@ -38,6 +39,9 @@ export default async function ProductsPage({
 
   const products = await prisma.product.findMany({
     where: {
+      averageRating: {
+        gte: minRating,
+      },
       price: {
         gte: minPrice,
         lte: maxPrice,
@@ -56,10 +60,12 @@ export default async function ProductsPage({
     include: {
       category: true,
       createdBy: true,
+      reviews: true,
     },
-    take: 20,
+    take: 5,
     skip: (page - 1) * 20,
   });
+
   const totalPages = Math.ceil(products.length / 20);
 
   // Fetch categories for the filter sidebar
@@ -104,8 +110,9 @@ export default async function ProductsPage({
                     }?search=${search}?sort=${sort}?minPrice=${minPrice}?maxPrice=${maxPrice}?categories=${categoryIds.join(
                       ","
                     )}?minRating=${minRating}`}
+                    className={buttonVariants({ variant: "link" })}
                   >
-                    <ArrowLeft />
+                    <ArrowLeft className="w-5 h-5" />
                   </Link>
                 )}
               </PaginationItem>
@@ -118,8 +125,9 @@ export default async function ProductsPage({
                     }&search=${search}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}&categories=${categoryIds.join(
                       ","
                     )}&minRating=${minRating}`}
+                    className={buttonVariants({ variant: "link" })}
                   >
-                    <ArrowRight />
+                    <ArrowRight className="w-5 h-5" />
                   </Link>
                 )}
               </PaginationItem>

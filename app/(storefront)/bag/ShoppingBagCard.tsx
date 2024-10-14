@@ -17,7 +17,7 @@ interface PageProps {
 
 const ShoppingBagCard: FC<PageProps> = ({ cart, totalPrice }) => {
   return (
-    <Card className="min-h-[70vh]">
+    <Card className="">
       <div className="flex flex-col gap-y-10 p-4 lg:p-8 bg-white rounded-2xl">
         {cart?.items.map((item) => (
           <div key={item.id} className="flex gap-4 items-center">

@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
-import { Star, ChevronDown } from "lucide-react";
+import { Star, ChevronDown, ArrowDownNarrowWide } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Category = {
   name: string;
@@ -42,7 +43,12 @@ export default function ProductFilters({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [isOpen, setIsOpen] = useState(false);
+  const [openSections, setOpenSections] = useState({
+    price: false,
+    categories: false,
+    rating: false,
+    filter: false,
+  });
 
   const [localPriceRange, setLocalPriceRange] = useState([minPrice, maxPrice]);
   const [localCategoryIds, setLocalCategoryIds] =
@@ -79,86 +85,142 @@ export default function ProductFilters({
     });
   };
 
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <Card>
-        <CardHeader className="px-2 py-2">
-          <CollapsibleTrigger asChild>
-            <Button
-              variant="ghost"
-              className="w-full flex justify-between items-center"
-            >
-              <CardTitle className="text-sm">Filters</CardTitle>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  isOpen ? "rotate-180" : ""
-                }`}
-              />
-            </Button>
-          </CollapsibleTrigger>
-        </CardHeader>
+    <Card className="shadow-none ">
+      <Collapsible
+        open={openSections.filter}
+        onOpenChange={() => toggleSection("filter")}
+      >
+        <CollapsibleTrigger className="w-full">
+          <CardHeader className="w-full">
+            <CardTitle className="text-sm px-4  gap-4 flex w-full items-center">
+              <span>Filters</span>
+              <span>
+                <ArrowDownNarrowWide className="w-4 h-4 inline" />
+              </span>
+            </CardTitle>
+          </CardHeader>
+        </CollapsibleTrigger>
         <CollapsibleContent>
-          <CardContent className="space-y-6">
-            <div>
-              <h3 className="font-medium mb-2">Price Range</h3>
-              <Slider
-                min={0}
-                max={100000}
-                step={100}
-                value={localPriceRange}
-                onValueChange={setLocalPriceRange}
-                className="w-full"
-              />
-
-              <div className="flex justify-between mt-2 text-sm text-muted-foreground">
-                <span>${localPriceRange[0].toLocaleString()}</span>
-                <span>${localPriceRange[1].toLocaleString()}</span>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-medium mb-2">Categories</h3>
-              {categories.map((category) => (
-                <div
-                  key={category.id}
-                  className="flex items-center space-x-2 mt-1"
+          <CardContent className="space-y-4">
+            <Collapsible
+              open={openSections.price}
+              onOpenChange={() => toggleSection("price")}
+            >
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full flex justify-between items-center"
                 >
-                  <Checkbox
-                    id={category.id}
-                    checked={localCategoryIds.includes(category.id)}
-                    onCheckedChange={(checked) => {
-                      setLocalCategoryIds(
-                        checked
-                          ? [...localCategoryIds, category.id]
-                          : localCategoryIds.filter((id) => id !== category.id)
-                      );
-                    }}
+                  <span>Price Range</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      openSections.price ? "rotate-180" : ""
+                    }`}
                   />
-                  <label htmlFor={category.id} className="text-sm">
-                    {category.name}
-                  </label>
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="pt-2">
+                <Slider
+                  min={0}
+                  max={100000}
+                  step={100}
+                  value={localPriceRange}
+                  onValueChange={setLocalPriceRange}
+                  className="w-full"
+                />
+                <div className="flex justify-between mt-2 text-sm text-muted-foreground">
+                  <span>${localPriceRange[0].toLocaleString()}</span>
+                  <span>${localPriceRange[1].toLocaleString()}</span>
                 </div>
-              ))}
-            </div>
+              </CollapsibleContent>
+            </Collapsible>
 
-            <div>
-              <h3 className="font-medium mb-2">Minimum Rating</h3>
-              <div className="flex items-center space-x-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Button
-                    key={star}
-                    variant={localMinRating >= star ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setLocalMinRating(star)}
-                  >
-                    <Star
-                      className={localMinRating >= star ? "fill-current" : ""}
-                      size={16}
-                    />
-                  </Button>
-                ))}
-              </div>
-            </div>
+            <Collapsible
+              open={openSections.categories}
+              onOpenChange={() => toggleSection("categories")}
+            >
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full flex justify-between items-center"
+                >
+                  <span>Categories</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      openSections.categories ? "rotate-180" : ""
+                    }`}
+                  />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="pt-2">
+                <ScrollArea className="h-72">
+                  {categories.map((category) => (
+                    <div
+                      key={category.id}
+                      className="flex items-center space-x-2 mt-1"
+                    >
+                      <Checkbox
+                        id={category.id}
+                        checked={localCategoryIds.includes(category.id)}
+                        onCheckedChange={(checked) => {
+                          setLocalCategoryIds(
+                            checked
+                              ? [...localCategoryIds, category.id]
+                              : localCategoryIds.filter(
+                                  (id) => id !== category.id
+                                )
+                          );
+                        }}
+                      />
+                      <label htmlFor={category.id} className="text-sm">
+                        {category.name}
+                      </label>
+                    </div>
+                  ))}
+                </ScrollArea>
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible
+              open={openSections.rating}
+              onOpenChange={() => toggleSection("rating")}
+            >
+              <CollapsibleTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full flex justify-between items-center"
+                >
+                  <span>Minimum Rating</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      openSections.rating ? "rotate-180" : ""
+                    }`}
+                  />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="pt-2">
+                <div className="flex items-center space-x-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Button
+                      key={star}
+                      variant={localMinRating >= star ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setLocalMinRating(star)}
+                    >
+                      <Star
+                        className={localMinRating >= star ? "fill-current" : ""}
+                        size={16}
+                      />
+                    </Button>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </CardContent>
           <CardFooter className="flex flex-col space-y-2">
             <Button
@@ -178,7 +240,7 @@ export default function ProductFilters({
             </Button>
           </CardFooter>
         </CollapsibleContent>
-      </Card>
-    </Collapsible>
+      </Collapsible>
+    </Card>
   );
 }
