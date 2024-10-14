@@ -11,6 +11,10 @@ import { toast } from "sonner";
 const ReviewForm = ({ productId }: { productId: string }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!rating || !comment) {
+      toast.error("Please fill all the fields");
+      return;
+    }
     const res = await addReview({ productId, rating, comment });
     if (res.success) {
       toast.success(res.message);
@@ -46,7 +50,14 @@ const ReviewForm = ({ productId }: { productId: string }) => {
           placeholder="Write your review here..."
         />
       </div>
-      <Button type="submit">Submit Review</Button>
+      <Button
+        type="submit"
+        variant="default"
+        size="sm"
+        className="w-full text-sm md:w-auto"
+      >
+        Submit Review
+      </Button>
     </form>
   );
 };

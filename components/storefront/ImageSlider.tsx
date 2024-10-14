@@ -40,10 +40,20 @@ export function ImageSlider({ images }: iAppProps) {
         />
 
         <div className="absolute inset-0 flex items-center justify-between px-4">
-          <Button onClick={handlePreviousClick} variant="ghost" size="icon">
+          <Button
+            onClick={handlePreviousClick}
+            variant="secondary"
+            className="rounded-full"
+            size="icon"
+          >
             <ChevronLeft className="w-6 h-6" />
           </Button>
-          <Button onClick={handleNextClick} variant="ghost" size="icon">
+          <Button
+            onClick={handleNextClick}
+            variant="secondary"
+            className="rounded-full"
+            size="icon"
+          >
             <ChevronRight className="w-6 h-6" />
           </Button>
         </div>

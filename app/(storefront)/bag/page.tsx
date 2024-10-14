@@ -32,6 +32,17 @@ export default async function BagRoute() {
   return (
     <div className=" py-12 bg-gradient-to-b from-indigo-400 to-violet-600 text-gray-900">
       <div className="max-w-3xl mx-auto mt-10 min-h-[70vh] bg-gray-50 rounded-lg p-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            Your Bag
+          </h1>
+          <p className="my-4 text-lg text-gray-500">
+            Your shopping bag contains{" "}
+            <span className="font-semibold text-gray-900">
+              {cart?.items.length} items
+            </span>
+          </p>
+        </div>
         {!cart || !cart.items || cart.items.length === 0 ? (
           <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border-4 border-dashed p-8 text-center mt-20">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
