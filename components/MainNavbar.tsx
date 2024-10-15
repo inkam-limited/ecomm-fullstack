@@ -26,7 +26,7 @@ const MainNavbar = async () => {
   const categories = await prisma.category.findMany();
 
   return (
-    <nav className="flex flex-col container mx-auto px-4">
+    <nav className="flex flex-col container mx-auto px-4 mb-3">
       <div className="flex w-full items-center justify-between mx-auto">
         <div className="flex-1">
           <MobileMenu

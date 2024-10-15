@@ -63,7 +63,7 @@ const MainSearchBar = ({ categories }: { categories: Category[] }) => {
   };
 
   return (
-    <div className="flex relative items-center w-full px-4 bg-gray-50 py-2 rounded-full">
+    <div className="flex relative items-center w-full px-4 bg-gray-50 py-2 rounded-full z-50">
       <div className="flex items-center gap-4 flex-grow z-50">
         <SearchIcon className="w-6 h-6" />
         <Input

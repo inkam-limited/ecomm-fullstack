@@ -25,8 +25,10 @@ export default async function BagRoute() {
   });
 
   return (
-    <div className=" py-12 bg-gradient-to-b from-indigo-400 to-violet-600 text-gray-900">
-      <div className="max-w-3xl mx-auto mt-10 bg-gray-50 rounded-lg p-8">
+    <div className="relative overflow-hidden md:py-12 bg-gradient-to-b from-indigo-400 to-violet-600 text-gray-900">
+      <div className="absolute -inset-16 bg-yellow-400/70 z-0 size-96 blur-3xl rounded-full" />
+      <div className="absolute -right-20 -bottom-20 bg-yellow-400/70 z-0 size-96 blur-3xl rounded-full" />
+      <div className="max-w-3xl relative mx-auto md:mt-10 bg-slate-50/70 backdrop-blur-3xl rounded-lg py-24 p-2 md:p-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Your Bag
