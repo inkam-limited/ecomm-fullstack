@@ -36,23 +36,32 @@ model BlogPost {
 }
 
 model Product {
-  id              String        @id @default(uuid())
+  id              String          @id @default(uuid())
   name            String
   description     Json
   status          ProductStatus
   price           Int
-  averageRating   Float?        @default(0.00)
+  averageRating   Float?          @default(0.00)
   images          String[]
+  prouductImages  UploadedImage[]
   category        Category[]
-  isFeatured      Boolean       @default(false)
+  isFeatured      Boolean         @default(false)
   productFileLink String?
-  createdBy       User?         @relation(fields: [createdById], references: [id])
+  createdBy       User?           @relation(fields: [createdById], references: [id])
   createdById     String?
   reviews         Review[]
 
   // Orders
   createdAt DateTime    @default(now())
   OrderItem OrderItem[]
+}
+
+model UploadedImage {
+  id          String   @id @default(uuid())
+  imageString String
+  caption     String
+  productId   String?
+  Product     Product? @relation(fields: [productId], references: [id])
 }
 
 model Review {
