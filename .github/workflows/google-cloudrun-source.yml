@@ -39,7 +39,7 @@ jobs:
             --build-arg _REDIS_TOKEN=${{ secrets.REDIS_TOKEN }} \
             --build-arg _UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} \
             --build-arg _BASE_URL=${{ secrets.BASE_URL }} \
-            --build-arg SUPABASE_KEY=${{ secrets.SUPABASE_KEY }} \
+            --build-arg _SUPABASE_KEY=${{ secrets.SUPABASE_KEY }} \
             --build-arg _SIGNATURE_KEY=${{ secrets.SIGNATURE_KEY }} \
             --build-arg _STORE_ID=${{ secrets.STORE_ID }}
           EOF
