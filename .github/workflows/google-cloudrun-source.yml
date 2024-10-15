@@ -39,8 +39,6 @@ jobs:
             --build-arg _REDIS_TOKEN=${{ secrets.REDIS_TOKEN }} \
             --build-arg _UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} \
             --build-arg _BASE_URL=${{ secrets.BASE_URL }} \
-            --build-arg _NEXT_PUBLIC_AAMARPAY_STORE_ID=${{ secrets.NEXT_PUBLIC_AAMARPAY_STORE_ID }} \
-            --build-arg _NEXT_PUBLIC_AAMARPAY_SIGNATURE_KEY=${{ secrets.NEXT_PUBLIC_AAMARPAY_SIGNATURE_KEY }} \
             --build-arg SUPABASE_KEY=${{ secrets.SUPABASE_KEY }} \
             --build-arg _SIGNATURE_KEY=${{ secrets.SIGNATURE_KEY }} \
             --build-arg _STORE_ID=${{ secrets.STORE_ID }}
@@ -74,9 +72,7 @@ jobs:
             --set-env-vars REDIS_TOKEN=${{ secrets.REDIS_TOKEN }} \
             --set-env-vars UPLOADTHING_SECRET=${{ secrets.UPLOADTHING_SECRET }} \
             --set-env-vars BASE_URL=${{ secrets.BASE_URL }} \
-            --set-env-vars NEXT_PUBLIC_AAMARPAY_STORE_ID=${{ secrets.NEXT_PUBLIC_AAMARPAY_STORE_ID }} \
             --set-env-vars NEXT_PUBLIC_AAMARPAY_SIGNATURE_KEY=${{ secrets.SUPABASE_KEY }} \
-            --set-env-vars SUPABASE_KEY=${{ secrets.NEXT_PUBLIC_AAMARPAY_SIGNATURE_KEY }} \
             --set-env-vars SIGNATURE_KEY=${{ secrets.SIGNATURE_KEY }} \
             --set-env-vars STORE_ID=${{ secrets.STORE_ID }} \
             --project ${{ secrets.GCP_PROJECT_ID }}
