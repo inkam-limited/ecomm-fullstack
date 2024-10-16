@@ -62,7 +62,7 @@ export default async function ProductsPage({
       createdBy: true,
       reviews: true,
     },
-    take: 5,
+    take: 20,
     skip: (page - 1) * 20,
   });
 
