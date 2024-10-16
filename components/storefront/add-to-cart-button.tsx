@@ -23,7 +23,7 @@ const AddToCartButton = ({
   const handleOnClick = async () => {
     if (!user) {
       toast.error("Please login to add to cart");
-      router.push(`/api/auth/login`);
+      router.push(`/api/auth/login?post_login_redirect_url=/product/${id}`);
     } else {
       setIsLoading(true);
       await addItem(id);
