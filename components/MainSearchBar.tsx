@@ -80,7 +80,7 @@ const MainSearchBar = ({ categories }: { categories: Category[] }) => {
         <SelectTrigger className="w-[180px] bg-transparent border-none focus:border-none focus:ring-transparent focus-visible:ring-transparent focus-visible:outline-transparent focus-within:outline-transparent focus-visible:outline-none flex h-10 rounded-md border-0 px-3 py-2 text-sm ring-offset-transparent  focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-0">
           <SelectValue placeholder="All Categories" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="max-h-[180px] overflow-y-scroll bg-white border border-gray-200 rounded-lg">
           {categories.map((category) => (
             <SelectItem key={category.id} value={category.id}>
               {category.name}
