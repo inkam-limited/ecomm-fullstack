@@ -33,7 +33,7 @@ export default async function ProductReview({
   return (
     <Card className="w-full max-w-2xl mx-auto border-0 shadow-none">
       <CardHeader>
-        <CardTitle>Product Reviews</CardTitle>
+        <CardTitle className="text-lg">Product Reviews</CardTitle>
         <CardDescription>
           Share your thoughts about this product
         </CardDescription>

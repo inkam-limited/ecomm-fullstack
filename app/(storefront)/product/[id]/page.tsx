@@ -138,10 +138,10 @@ export default async function ProductIdRoute({
       <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-8 items-start py-6">
         <ImageSlider images={data.images} />
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <h1 className="text-xl font-extrabold tracking-tight text-gray-900">
             {data.name}
           </h1>
-          <p className="text-3xl mt-2 text-gray-900">&#2547;{data.price}</p>
+          <p className="text-xl mt-2 text-gray-900">&#2547;{data.price}</p>
           <div className="mt-3">
             {data.reviews.length === 0 && (
               <p>This product has no reviews yet</p>
@@ -150,7 +150,7 @@ export default async function ProductIdRoute({
           </div>
 
           <div className="mt-6 space-y-4">
-            <AddToCartButton id={data.id} />
+            <AddToCartButton user={user} id={data.id} />
           </div>
           {data.hasOrdered && (
             <div className="mt-4 space-y-4">

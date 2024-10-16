@@ -174,7 +174,7 @@ export async function deleteBanner(formData: FormData) {
   const user = await getUser();
 
   if (!user) {
-    return redirect("/");
+    return redirect("/api/auth/login");
   }
 
   await prisma.banner.delete({
@@ -188,70 +188,79 @@ export async function deleteBanner(formData: FormData) {
 
 export async function addItem(productId: string) {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
 
-  if (!user) {
-    return redirect("/");
-  }
+  try {
+    const user = await getUser();
 
-  let cart: Cart | null = await redis.get(`cart-${user.id}`);
+    if (!user) {
+      return;
+    }
 
-  const selectedProduct = await prisma.product.findUnique({
-    select: {
-      id: true,
-      name: true,
-      price: true,
-      images: true,
-    },
-    where: {
-      id: productId,
-    },
-  });
+    if (!user.id) {
+      throw new Error("User not found");
+    }
 
-  if (!selectedProduct) {
-    throw new Error("No product with this id");
-  }
-  let myCart = {} as Cart;
+    let cart: Cart | null = await redis.get(`cart-${user.id}`);
 
-  if (!cart || !cart.items) {
-    myCart = {
-      userId: user.id,
-      items: [
-        {
-          price: selectedProduct.price,
+    const selectedProduct = await prisma.product.findUnique({
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        images: true,
+      },
+      where: {
+        id: productId,
+      },
+    });
+
+    if (!selectedProduct) {
+      throw new Error("No product with this id");
+    }
+    let myCart = {} as Cart;
+
+    if (!cart || !cart.items) {
+      myCart = {
+        userId: user.id,
+        items: [
+          {
+            price: selectedProduct.price,
+            id: selectedProduct.id,
+            imageString: selectedProduct.images[0],
+            name: selectedProduct.name,
+            quantity: 1,
+          },
+        ],
+      };
+    } else {
+      let itemFound = false;
+
+      myCart.items = cart.items.map((item) => {
+        if (item.id === productId) {
+          itemFound = true;
+          item.quantity += 1;
+        }
+
+        return item;
+      });
+
+      if (!itemFound) {
+        myCart.items.push({
           id: selectedProduct.id,
           imageString: selectedProduct.images[0],
           name: selectedProduct.name,
+          price: selectedProduct.price,
           quantity: 1,
-        },
-      ],
-    };
-  } else {
-    let itemFound = false;
-
-    myCart.items = cart.items.map((item) => {
-      if (item.id === productId) {
-        itemFound = true;
-        item.quantity += 1;
+        });
       }
-
-      return item;
-    });
-
-    if (!itemFound) {
-      myCart.items.push({
-        id: selectedProduct.id,
-        imageString: selectedProduct.images[0],
-        name: selectedProduct.name,
-        price: selectedProduct.price,
-        quantity: 1,
-      });
     }
+
+    await redis.set(`cart-${user.id}`, myCart);
+  } catch (error) {
+    throw new Error("Something went wrong");
+  } finally {
+    revalidatePath("/", "layout");
   }
-
-  await redis.set(`cart-${user.id}`, myCart);
-
-  revalidatePath("/", "layout");
 }
 
 export async function delItem(formData: FormData) {

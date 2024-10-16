@@ -1,17 +1,35 @@
 "use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import { addItem } from "@/app/actions";
 import { toast } from "sonner";
 import { Loader2, ShoppingBag } from "lucide-react";
+import {
+  KindeUser,
+  KindeUserProperties,
+} from "@kinde-oss/kinde-auth-nextjs/types";
+import { useRouter } from "next/navigation";
 
-const AddToCartButton = ({ id }: { id: string }) => {
+const AddToCartButton = ({
+  id,
+  user,
+}: {
+  id: string;
+  user: KindeUser<Record<string, any>>;
+}) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const router = useRouter();
   const handleOnClick = async () => {
-    setIsLoading(true);
-    await addItem(id);
-    toast.success("Added to cart");
-    setIsLoading(false);
+    if (!user) {
+      toast.error("Please login to add to cart");
+      router.push(`/api/auth/login`);
+    } else {
+      setIsLoading(true);
+      await addItem(id);
+      toast.success("Added to cart");
+      setIsLoading(false);
+    }
   };
 
   if (isLoading) {
