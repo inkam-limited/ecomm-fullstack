@@ -35,6 +35,6 @@ export async function GET() {
   return NextResponse.redirect(
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : "https://inkam-ux-852558420668.asia-southeast1.run.app"
+      : "https://www.digigo.studio/"
   );
 }
