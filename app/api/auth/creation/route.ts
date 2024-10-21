@@ -35,6 +35,6 @@ export async function GET() {
   return NextResponse.redirect(
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"
-      : "https://www.digigo.studio/"
+      : "https://digigo.studio"
   );
 }
