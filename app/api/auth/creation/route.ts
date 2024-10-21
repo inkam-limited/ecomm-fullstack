@@ -12,25 +12,27 @@ export async function GET() {
     throw new Error("Something went wrong...");
   }
 
-  let dbUser = await prisma.user.findUnique({
+  await prisma.user.upsert({
     where: {
-      id: user.id,
       email: user.email ? user.email : "",
     },
+    create: {
+      id: user.id,
+      firstName: user.given_name ?? "",
+      lastName: user.family_name ?? "",
+      email: user.email ?? "",
+      profileImage:
+        user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
+    },
+    update: {
+      id: user.id,
+      firstName: user.given_name ?? "",
+      lastName: user.family_name ?? "",
+      email: user.email ?? "",
+      profileImage:
+        user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
+    },
   });
-
-  if (!dbUser) {
-    dbUser = await prisma.user.create({
-      data: {
-        id: user.id,
-        firstName: user.given_name ?? "",
-        lastName: user.family_name ?? "",
-        email: user.email ?? "",
-        profileImage:
-          user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
-      },
-    });
-  }
 
   return NextResponse.redirect(
     process.env.NODE_ENV === "development"
