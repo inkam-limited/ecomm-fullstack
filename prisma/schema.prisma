@@ -14,12 +14,12 @@ model User {
   lastName     String
   profileImage String
 
-  orders Order[]
+  orders   Order[]
+  Product  Product[]
+  Review   Review[]
+  blogPost BlogPost[]
 
-  createdAt DateTime   @default(now())
-  Product   Product[]
-  Review    Review[]
-  blogPost  BlogPost[]
+  createdAt DateTime @default(now())
 }
 
 model BlogPost {
@@ -30,7 +30,7 @@ model BlogPost {
   thumbnail   String?
   content     Json
   isFeatured  Boolean       @default(false)
-  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdBy   User          @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
   createdById String
   createdAt   DateTime      @default(now())
 }
@@ -47,13 +47,12 @@ model Product {
   category        Category[]
   isFeatured      Boolean         @default(false)
   productFileLink String?
-  createdBy       User?           @relation(fields: [createdById], references: [id])
+  createdBy       User?           @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
   createdById     String?
   reviews         Review[]
+  OrderItem       OrderItem[]
 
-  // Orders
-  createdAt DateTime    @default(now())
-  OrderItem OrderItem[]
+  createdAt DateTime @default(now())
 }
 
 model UploadedImage {
@@ -61,16 +60,16 @@ model UploadedImage {
   imageString String
   caption     String
   productId   String?
-  Product     Product? @relation(fields: [productId], references: [id])
+  Product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
 }
 
 model Review {
   id          String   @id @default(uuid())
   rating      Int
   comment     String
-  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
   createdById String
-  product     Product  @relation(fields: [productId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
   productId   String
   createdAt   DateTime @default(now())
 }
@@ -85,14 +84,14 @@ model Banner {
 
 model Order {
   id            String      @id @default(uuid())
-  status        OrderStatus @default(pending) // Order status (e.g., pending, paid, cancelled)
-  amount        Int // Total order amount
-  transactionId String      @unique // Transaction ID from the payment gateway
+  status        OrderStatus @default(pending)
+  amount        Int
+  transactionId String      @unique
   payStatus     String
   paidAmount    Int         @default(0)
 
   createdAt DateTime    @default(now())
-  User      User        @relation(fields: [userId], references: [id])
+  User      User        @relation(fields: [userId], references: [id], onDelete: Cascade) // Cascade on delete
   userId    String
   productId String?
   OrderItem OrderItem[]
@@ -105,8 +104,8 @@ model OrderItem {
   productId String
   orderId   String
   createdAt DateTime @default(now())
-  Order     Order    @relation(fields: [orderId], references: [id])
-  Product   Product  @relation(fields: [productId], references: [id])
+  Order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade) // Cascade on delete
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
 }
 
 enum OrderStatus {

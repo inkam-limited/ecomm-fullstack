@@ -58,7 +58,7 @@ const MainNavbar = async () => {
 
         <div className="flex justify-end flex-1 items-center gap-4">
           <div className="flex items-center">
-            {user ? (
+            {user && (
               <>
                 <Link href="/bag" className="group p-2 flex items-center mr-2">
                   <ShoppingBagIcon className="h-6 w-6 text-gray-400 group-hover:text-gray-500" />
@@ -76,7 +76,8 @@ const MainNavbar = async () => {
                   }
                 />
               </>
-            ) : (
+            )}
+            {!user && (
               <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-2">
                 <Button variant="ghost" asChild>
                   <LoginLink>Sign in</LoginLink>
