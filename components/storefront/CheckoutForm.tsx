@@ -62,7 +62,6 @@ export const PaymentForm = ({
     const conversionRate: Record<string, any> = await getConversionRate(
       getValues("currency")
     );
-    console.log("amount", total_amount);
     const price =
       currency === "USD"
         ? Number(amount) * Number(conversionRate)

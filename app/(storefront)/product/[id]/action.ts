@@ -67,7 +67,6 @@ export async function addReview(data: ReviewFormValue) {
 
   if (!review) return { success: false, message: "Failed to create review" };
 
-  console.log(review);
   revalidatePath(`/product/${review.productId}`);
   return { success: true, message: "Review added successfully" };
 }

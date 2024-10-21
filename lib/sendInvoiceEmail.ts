@@ -19,7 +19,6 @@ export const sendInvoiceEmail = async ({
       subject: "Your Invoice",
       html: emailHtml,
     });
-    console.log("Email sent successfully:", response);
   } catch (error) {
     console.error("Error sending email:", error);
   }

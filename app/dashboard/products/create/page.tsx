@@ -82,7 +82,6 @@ export default function ProductCreateRoute() {
 
   const onSubmit = async (data: CreateProductFormValues) => {
     try {
-      console.log(data);
       await createProduct(data);
       reset();
       setImages([]);
@@ -293,7 +292,6 @@ export default function ProductCreateRoute() {
                       <UploadDropzone
                         endpoint="productFileUploader"
                         onUploadProgress={(progress) => {
-                          console.log(progress);
                         }}
                         config={{ mode: "auto" }}
                         onClientUploadComplete={(res) => {

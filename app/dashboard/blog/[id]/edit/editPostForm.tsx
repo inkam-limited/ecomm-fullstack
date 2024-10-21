@@ -43,8 +43,6 @@ const EditPostForm = ({ post }: { post: BlogPost }) => {
     }
   };
 
-  console.log();
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Title Input */}

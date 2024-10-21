@@ -26,6 +26,5 @@ export const createPost = async ({
       },
     },
   });
-  console.log(newPost);
   return { success: true, message: "Post created successfully" };
 };

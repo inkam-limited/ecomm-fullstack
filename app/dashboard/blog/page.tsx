@@ -34,7 +34,6 @@ async function getData() {
       createdAt: "desc",
     },
   });
-  console.log(data);
   return data;
 }
 
