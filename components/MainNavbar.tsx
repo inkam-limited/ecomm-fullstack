@@ -81,7 +81,7 @@ const MainNavbar = async () => {
               <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:space-x-2">
                 <Button variant="ghost" asChild>
                   <LoginLink
-                    postLoginRedirectURL={`${process.env.BASE_URL}/api/auth/creation`}
+                  // postLoginRedirectURL={`${process.env.BASE_URL}/api/auth/creation`}
                   >
                     Sign in
                   </LoginLink>
