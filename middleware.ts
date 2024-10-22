@@ -4,14 +4,19 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
 
-  // Check if the environment is production
+  // Check if the app is running in production
   if (process.env.NODE_ENV === "production") {
-    // Redirect from non-www to www only if the domain does not start with 'www'
-    if (url.hostname === "digigo.studio") {
-      url.hostname = "www.digigo.studio";
-      return NextResponse.redirect(url);
+    // If the hostname is not www and is not localhost (for dev purposes), then redirect
+    if (
+      !url.hostname.startsWith("www") &&
+      !url.hostname.includes("localhost")
+    ) {
+      // Redirect only if the hostname doesn't already start with 'www'
+      url.hostname = `www.${url.hostname}`;
+      return NextResponse.redirect(url, 308); // Permanent redirect (308)
     }
   }
 
-  return NextResponse.next(); // Continue without redirect if condition is not met
+  // Continue processing the request without redirection if the condition is not met
+  return NextResponse.next();
 }
