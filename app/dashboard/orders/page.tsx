@@ -17,6 +17,7 @@ import prisma from "@/lib/db";
 import Link from "next/link";
 import { getPaymentDetails } from "./[transactionId]/action";
 import { Suspense } from "react";
+import DetailsDialog from "./[transactionId]/DetailsDialog";
 
 async function getData() {
   const data = await prisma.order.findMany({
@@ -42,15 +43,8 @@ async function getData() {
   return data;
 }
 
-const RenderStatus = async ({ transactionId }: { transactionId: string }) => {
-  const data = await getPaymentDetails(transactionId);
-  console.log(data);
-  return <p>demo</p>;
-};
-
 export default async function OrdersPage() {
   const data = await getData();
-  console.log(data);
 
   return (
     <Card>
@@ -65,7 +59,6 @@ export default async function OrdersPage() {
               <TableHead>Customer</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Provider Status</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Amount</TableHead>
             </TableRow>
@@ -82,23 +75,15 @@ export default async function OrdersPage() {
                 <TableCell>Order</TableCell>
                 <TableCell>{item.status}</TableCell>
                 <TableCell>
-                  <Suspense fallback={<p>Loading...</p>}>
-                    <RenderStatus transactionId={item.transactionId} />
-                  </Suspense>
-                </TableCell>
-                <TableCell>
                   {new Intl.DateTimeFormat("bn-BD").format(item.createdAt)}
                 </TableCell>
                 <TableCell className="text-right">
                   BDT {new Intl.NumberFormat("bn-BD").format(item.paidAmount)}
                 </TableCell>
                 <TableCell className="text-right">
-                  <Link
-                    href={`/dashboard/orders/${item.transactionId}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    View
-                  </Link>
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <DetailsDialog id={item.transactionId} />
+                  </Suspense>
                 </TableCell>
               </TableRow>
             ))}

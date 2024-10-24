@@ -19,6 +19,7 @@ export const getPaymentDetails = async (transactionId: string) => {
       };
     }
     const data = await response.json();
+    console.log(data);
     return { status: 200, data };
   } catch (error) {
     return {
