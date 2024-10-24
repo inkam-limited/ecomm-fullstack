@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-// API response type
 interface ApiResponse {
   status: number;
   data?: PaymentDetails;
@@ -89,6 +88,7 @@ interface DetailsDialogProps {
   id: string;
   trigger?: React.ReactNode;
 }
+export const dynamic = "force-dynamic";
 
 const DetailsDialog = ({ id, trigger }: DetailsDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,10 +96,10 @@ const DetailsDialog = ({ id, trigger }: DetailsDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!isOpen) return;
+  const handleOpenChange = async (open: boolean) => {
+    setIsOpen(open);
 
+    if (open) {
       setIsLoading(true);
       setError(null);
       try {
@@ -120,10 +120,8 @@ const DetailsDialog = ({ id, trigger }: DetailsDialogProps) => {
       } finally {
         setIsLoading(false);
       }
-    };
-
-    fetchData();
-  }, [id, isOpen]);
+    }
+  };
 
   const renderDetailItem = (label: string, value: string | null) => (
     <div className="mb-2">
@@ -133,7 +131,7 @@ const DetailsDialog = ({ id, trigger }: DetailsDialogProps) => {
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger || <button>Open</button>}</DialogTrigger>
       <DialogContent className="max-w-6xl">
         <DialogHeader>
