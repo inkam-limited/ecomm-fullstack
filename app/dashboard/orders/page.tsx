@@ -14,8 +14,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import prisma from "@/lib/db";
-import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
+import { getPaymentDetails } from "./[transactionId]/action";
+import { Suspense } from "react";
 
 async function getData() {
   const data = await prisma.order.findMany({
@@ -41,9 +42,16 @@ async function getData() {
   return data;
 }
 
+const RenderStatus = async ({ transactionId }: { transactionId: string }) => {
+  const data = await getPaymentDetails(transactionId);
+  console.log(data);
+  return <p>demo</p>;
+};
+
 export default async function OrdersPage() {
-  noStore();
   const data = await getData();
+  console.log(data);
+
   return (
     <Card>
       <CardHeader className="px-7">
@@ -57,6 +65,7 @@ export default async function OrdersPage() {
               <TableHead>Customer</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Provider Status</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Amount</TableHead>
             </TableRow>
@@ -72,6 +81,11 @@ export default async function OrdersPage() {
                 </TableCell>
                 <TableCell>Order</TableCell>
                 <TableCell>{item.status}</TableCell>
+                <TableCell>
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <RenderStatus transactionId={item.transactionId} />
+                  </Suspense>
+                </TableCell>
                 <TableCell>
                   {new Intl.DateTimeFormat("bn-BD").format(item.createdAt)}
                 </TableCell>
