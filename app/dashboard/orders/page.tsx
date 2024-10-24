@@ -80,11 +80,11 @@ export default async function OrdersPage() {
                 <TableCell className="text-right">
                   BDT {new Intl.NumberFormat("bn-BD").format(item.paidAmount)}
                 </TableCell>
-                <TableCell className="text-right">
+                {/* <TableCell className="text-right">
                   <Suspense fallback={<p>Loading...</p>}>
                     <DetailsDialog id={item.transactionId} />
                   </Suspense>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
