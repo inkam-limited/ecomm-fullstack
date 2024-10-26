@@ -1,5 +1,7 @@
-import Link from "next/link";
+"use client";
 import React from "react";
+import SplitLink from "./SplitLink";
+import { motion } from "framer-motion";
 
 const data = [
   { name: "graphic", url: "/category/graphic" },
@@ -10,23 +12,44 @@ const data = [
   { name: "illustration", url: "/category/illustration" },
 ];
 
+const variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.3,
+      stiffness: 100,
+      type: "tween",
+      easings: "easeIn",
+      delayChildren: 0.1,
+      delay: 1,
+    },
+  },
+};
+
 const CategoryChips = () => {
   return (
-    <div className="flex flex-wrap gap-4 justify-center pb-12">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={{ staggerChildren: 0.03 }}
+      className="flex flex-wrap gap-4 justify-center pb-12"
+    >
       {data.map((item, index) => (
-        <div
+        <motion.div
+          variants={variants}
           key={index}
           className="px-8 py-2 border border-gray-200 rounded-2xl"
         >
-          <Link
-            href={`/products`}
-            className="text-gray-600 text-sm hover:text-gray-800 font-semibold"
-          >
-            {item.name}
-          </Link>
-        </div>
+          <SplitLink href={`/products`}>{item.name}</SplitLink>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

@@ -5,6 +5,7 @@ import BannerCard from "../../components/BannerCard";
 import ActionToSell from "@/components/ActionToSell";
 import BlogSection from "@/components/blog-section";
 import prisma from "@/lib/db";
+import Tagline from "@/components/storefront/Tagline";
 
 const HomePage = async () => {
   const productBanner = await prisma.banner.findMany();
@@ -14,9 +15,8 @@ const HomePage = async () => {
       <div className="container px-4 pb-8">
         <CategoryBar />
         <BannerCard banner={productBanner[1]!} />
-        <h1 className="text-3xl lg:text-5xl text-center font-bold py-12 lg:py-24">
-          Bring your creative ideas to life.
-        </h1>
+        <Tagline />
+
         <CategoryChips />
         <ProductCardDisplay title="New Products" link="/products" />
         <BannerCard banner={productBanner[0]!} />

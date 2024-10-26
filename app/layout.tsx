@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "antialiased")}>
+      <body className={cn(inter.className, "antialiased text-neutral-900")}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {children}
         <Toaster />

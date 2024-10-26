@@ -7,8 +7,8 @@ const GlowButton = () => {
   return (
     <motion.button
       style={{
-        width: "110px",
-        height: "40px",
+        width: "100px",
+        height: "35px",
         border: "none",
         outline: "none",
         color: "#fff",
@@ -17,8 +17,8 @@ const GlowButton = () => {
         position: "relative",
         zIndex: 0,
         borderRadius: "100px",
-        fontSize: "16px",
-        fontWeight: "bold",
+        fontSize: "12px",
+        fontWeight: "400",
         overflow: "hidden",
       }}
       whileHover={{
