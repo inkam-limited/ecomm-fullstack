@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id           String @id
-  email        String @unique
+  id           String     @id
+  email        String     @unique
   firstName    String
   lastName     String
   profileImage String
-
-  orders   Order[]
-  Product  Product[]
-  Review   Review[]
-  blogPost BlogPost[]
-
-  createdAt DateTime @default(now())
+  createdAt    DateTime   @default(now())
+  isAdmin      Boolean    @default(false)
+  isProAccount Boolean    @default(false)
+  blogPost     BlogPost[]
+  orders       Order[]
+  Product      Product[]
+  Review       Review[]
 }
 
 model BlogPost {
@@ -29,30 +29,29 @@ model BlogPost {
   status      ProductStatus @default(published)
   thumbnail   String?
   content     Json
-  isFeatured  Boolean       @default(false)
-  createdBy   User          @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
   createdById String
   createdAt   DateTime      @default(now())
+  isFeatured  Boolean       @default(false)
+  createdBy   User          @relation(fields: [createdById], references: [id], onDelete: Cascade)
 }
 
 model Product {
   id              String          @id @default(uuid())
   name            String
-  description     Json
   status          ProductStatus
   price           Int
-  averageRating   Float?          @default(0.00)
   images          String[]
-  prouductImages  UploadedImage[]
-  category        Category[]
   isFeatured      Boolean         @default(false)
-  productFileLink String?
-  createdBy       User?           @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
+  createdAt       DateTime        @default(now())
   createdById     String?
-  reviews         Review[]
+  productFileLink String?
+  description     Json
+  averageRating   Float?          @default(0.00)
   OrderItem       OrderItem[]
-
-  createdAt DateTime @default(now())
+  createdBy       User?           @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  reviews         Review[]
+  prouductImages  UploadedImage[]
+  category        Category[]      @relation("CategoryToProduct")
 }
 
 model UploadedImage {
@@ -60,52 +59,58 @@ model UploadedImage {
   imageString String
   caption     String
   productId   String?
-  Product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
+  Product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Review {
   id          String   @id @default(uuid())
   rating      Int
   comment     String
-  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade) // Cascade on delete
   createdById String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
   productId   String
   createdAt   DateTime @default(now())
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Banner {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   imageString String
-
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
 }
 
 model Order {
   id            String      @id @default(uuid())
-  status        OrderStatus @default(pending)
   amount        Int
-  transactionId String      @unique
+  userId        String
+  createdAt     DateTime    @default(now())
   payStatus     String
+  transactionId String      @unique
+  status        OrderStatus @default(pending)
   paidAmount    Int         @default(0)
-
-  createdAt DateTime    @default(now())
-  User      User        @relation(fields: [userId], references: [id], onDelete: Cascade) // Cascade on delete
-  userId    String
-  productId String?
-  OrderItem OrderItem[]
+  productId     String?
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  OrderItem     OrderItem[]
 }
 
 model OrderItem {
-  id        String   @id @default(uuid())
   quantity  Int
   price     Int
   productId String
   orderId   String
   createdAt DateTime @default(now())
-  Order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade) // Cascade on delete
-  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascade on delete
+  id        String   @id @default(uuid())
+  Order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  imageString String?
+  products    Product[] @relation("CategoryToProduct")
 }
 
 enum OrderStatus {
@@ -118,12 +123,4 @@ enum ProductStatus {
   draft
   published
   archived
-}
-
-model Category {
-  id          String    @id @default(uuid())
-  name        String    @unique
-  description String?
-  imageString String?
-  products    Product[]
 }
