@@ -17,10 +17,22 @@ import prisma from "@/lib/db";
 import MobileMenu from "./mobile/mobile-menu";
 import DigigoLogo from "./logo";
 import GlowButton from "./GlowButton";
+import { User } from "@prisma/client";
 
 const MainNavbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+  let dbUser: { isProAccount: boolean } | null = null;
+  if (user) {
+    dbUser = await prisma.user.findUnique({
+      where: {
+        id: user?.id,
+      },
+      select: {
+        isProAccount: true,
+      },
+    });
+  }
 
   const cart: Cart | null = await redis.get(`cart-${user?.id}`);
   const total = cart?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
@@ -36,6 +48,7 @@ const MainNavbar = async () => {
             cart={cart}
             total={total}
             user={user}
+            isPro={dbUser?.isProAccount}
           />
         </div>
 
@@ -44,7 +57,9 @@ const MainNavbar = async () => {
         </Link>
 
         <div className="flex justify-end flex-1 items-center gap-4">
-          <div className="hidden md:flex">{user && <GlowButton />}</div>
+          <div className="hidden md:flex">
+            {user && <GlowButton isPro={dbUser?.isProAccount} />}
+          </div>
           <div className="flex items-center">
             {user && (
               <>

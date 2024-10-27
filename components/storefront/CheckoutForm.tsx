@@ -26,11 +26,13 @@ export const PaymentForm = ({
   total_amount,
   name,
   email,
+  isProAccount,
 }: {
   total_amount: number;
   name: string;
   email: string;
   userId: string;
+  isProAccount?: boolean;
 }) => {
   const {
     control,
@@ -179,7 +181,7 @@ export const PaymentForm = ({
           <Label htmlFor="amount">Amount</Label>
           <Badge className="ml-2"> {selectedCurrency} </Badge>
           <Input
-            disabled
+            disabled={isProAccount ? false : true}
             id="amount"
             type="text"
             {...register("amount", { valueAsNumber: true })}

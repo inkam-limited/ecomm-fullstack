@@ -1,5 +1,6 @@
 import { PaymentForm } from "@/components/storefront/CheckoutForm";
 import { Card } from "@/components/ui/card";
+import prisma from "@/lib/db";
 import { Cart } from "@/lib/interfaces";
 import { redis } from "@/lib/redis";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -13,8 +14,17 @@ const page = async () => {
   const user = await getUser();
 
   if (!user) {
-    redirect("/");
+    redirect("/auth/login?redirectTo=/checkout");
   }
+
+  const dbUser = await prisma.user.findUnique({
+    where: {
+      id: user.id,
+    },
+    select: {
+      isProAccount: true,
+    },
+  });
 
   const cart: Cart | null = await redis.get(`cart-${user.id}`);
 
@@ -35,6 +45,7 @@ const page = async () => {
             name={`${user.family_name} ${user.given_name}`}
             email={user.email!}
             userId={user.id}
+            isProAccount={dbUser?.isProAccount}
           />
         </Card>
       </div>

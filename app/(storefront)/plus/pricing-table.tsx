@@ -48,7 +48,7 @@ export default function PricingTable({
     if (promoCode.toUpperCase() === "FREEPLUS") {
       setIsPromoApplied(true);
       toast.success(
-        "Promo code FREEPLUS applied successfully! You now have access to Digigo Plus."
+        "Promo code FREEPLUS applied successfully! You can now access Digigo Plus for free."
       );
     } else {
       toast.error("Invalid Code. Please check your promo code and try again.");
@@ -125,7 +125,7 @@ export default function PricingTable({
                   </CardDescription>
                 </div>
                 <div className="text-right">
-                  <div className="text-4xl font-bold text-gray-900">$0</div>
+                  <div className="text-2xl font-bold text-gray-900">$0</div>
                   <div className="text-sm text-gray-500">Forever free</div>
                 </div>
               </div>
@@ -186,7 +186,7 @@ export default function PricingTable({
                   </CardDescription>
                 </div>
                 <div className="text-right">
-                  <div className="text-4xl font-bold text-gray-900">
+                  <div className="text-2xl font-bold text-gray-900">
                     {isPro ? (
                       <span className="text-green-600">Active</span>
                     ) : isPromoApplied ? (
@@ -338,7 +338,11 @@ function FeatureList({
               }`}
             />
           </div>
-          <span className={`ml-3 ${feature.highlight ? "font-medium" : ""}`}>
+          <span
+            className={`ml-3 ${
+              feature.highlight ? "text-sm font-medium" : "text-sm"
+            }`}
+          >
             {feature.text}
             <feature.icon className="ml-2 h-4 w-4 text-gray-400 inline-block" />
           </span>

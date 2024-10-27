@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const GlowButton = () => {
+const GlowButton = ({ isPro }: { isPro?: boolean }) => {
   return (
     <motion.button
       style={{
@@ -29,7 +29,9 @@ const GlowButton = () => {
         ease: "easeInOut",
       }}
     >
-      <Link href="/plus">Get Plus</Link>
+      <Link className="px-4 py-2 uppercase font-bold" href="/plus">
+        {isPro ? "Digigo +" : "Get Plus"}
+      </Link>
       {/* Animated Border */}
       <motion.div
         style={{

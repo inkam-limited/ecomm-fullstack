@@ -27,11 +27,13 @@ const MobileMenu = ({
   user,
   cart,
   total,
+  isPro,
 }: {
   categories: Category[];
   user: KindeUserProperties | null;
   cart: Cart | null;
   total: number;
+  isPro?: boolean;
 }) => {
   return (
     <Sheet>
@@ -97,8 +99,10 @@ const MobileMenu = ({
         </ScrollArea>
         <SheetFooter>
           <div className="flex justify-center w-full mt-4 gap-4 items-center">
-            <span className="text-sm text-gray-500">Get Plus</span>
-            <GlowButton />
+            <span className="text-sm text-gray-500">
+              {isPro ? "Plus activated" : "Activate Plus"}
+            </span>
+            <GlowButton isPro={isPro} />
           </div>
         </SheetFooter>
       </SheetContent>
