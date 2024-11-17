@@ -333,7 +333,7 @@ export async function createPayment(prevState: any, formData: FormData) {
   };
 
   const { data } = await axios.post(
-    "https://sandbox.aamarpay.com/jsonpost.php",
+    "https://secure.aamarpay.com/jsonpost.php",
     { ...paymentFormData, desc: order.id },
     {
       headers: {

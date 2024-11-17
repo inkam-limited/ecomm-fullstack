@@ -16,7 +16,7 @@ export async function GET(
     );
   }
 
-  const apiUrl = `http://sandbox.aamarpay.com/api/v1/trxcheck/request.php?request_id=${transactionId}&store_id=${storeId}&signature_key=${signatureKey}&type=json`;
+  const apiUrl = `https://secure.aamarpay.com/api/v1/trxcheck/request.php?request_id=${transactionId}&store_id=${storeId}&signature_key=${signatureKey}&type=json`;
 
   try {
     const response = await fetch(apiUrl);
