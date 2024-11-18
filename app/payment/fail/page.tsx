@@ -18,7 +18,12 @@ const page = ({
       payStatus: "Failed",
     },
   });
-  return <div>{JSON.stringify(order)}</div>;
+  console.log("order failed", order);
+  return (
+    <div>
+      <h1>Payment Failed</h1>
+    </div>
+  );
 };
 
 export default page;
