@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
       status: pay_status === "Successful" ? "paid" : "pending",
     },
   });
+  console.log("Order updated:", order);
   let cart: Cart | null = await redis.get(`cart-${order.userId}`);
 
   const updateOrderItems = cart?.items.map((item) => {
