@@ -35,7 +35,7 @@ export function UserDropdown({ email, name, userImage }: iAppProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/create-payment">Create Payment</Link>
+          <Link href="/create-order">Create Payment</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/dashboard">Dashboard</Link>

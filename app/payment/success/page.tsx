@@ -17,7 +17,7 @@ export default function SuccessRoute() {
               Payment Successfull
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Congrats to your purchase. Your payment was succesfull. We hope
+              Congrats to your purchase. Your payment was successful. We hope
               you enjoy your product.
             </p>
 

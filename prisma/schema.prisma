@@ -8,18 +8,19 @@ datasource db {
 }
 
 model User {
-  id           String     @id
-  email        String     @unique
+  id           String        @id
+  email        String        @unique
   firstName    String
   lastName     String
   profileImage String
-  createdAt    DateTime   @default(now())
-  isAdmin      Boolean    @default(false)
-  isProAccount Boolean    @default(false)
+  createdAt    DateTime      @default(now())
+  isAdmin      Boolean       @default(false)
+  isProAccount Boolean       @default(false)
   blogPost     BlogPost[]
   orders       Order[]
   Product      Product[]
   Review       Review[]
+  Transaction  Transaction[]
 }
 
 model BlogPost {
@@ -52,6 +53,7 @@ model Product {
   reviews         Review[]
   prouductImages  UploadedImage[]
   category        Category[]      @relation("CategoryToProduct")
+  Transaction     Transaction[]
 }
 
 model UploadedImage {
@@ -123,4 +125,24 @@ enum ProductStatus {
   draft
   published
   archived
+}
+
+model Transaction {
+  id              String   @id @default(uuid())
+  tranId          String   @unique // Unique Order ID
+  amount          String?  @map("amount") // Transaction amount
+  currency        String?  @default("BDT") // Default Currency Code
+  description     String   @map("desc") // Transaction description
+  customerName    String?  @map("cus_name")
+  customerEmail   String?  @map("cus_email")
+  customerAddress String?  @map("cus_add1")
+  customerPhone   String?  @map("cus_phone")
+  type            String   @default("json") // Default type set to "json"
+  createdAt       DateTime @default(now()) // Automatically set timestamp on creation
+  updatedAt       DateTime @updatedAt // Automatically update timestamp on modification
+  User            User?    @relation(fields: [userId], references: [id])
+  userId          String?
+  product         Product? @relation(fields: [productId], references: [id])
+  productId       String?
+  status          String   @default("pending") // Default status set to "pending"
 }
