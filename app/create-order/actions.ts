@@ -101,5 +101,6 @@ export const submitPayment = async (
   if (!payment_url) {
     return { success: false, error: "Payment URL not found" };
   }
+  console.log("payment_url", payment_url);
   redirect(payment_url);
 };
