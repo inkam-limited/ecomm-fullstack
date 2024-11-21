@@ -40,3 +40,12 @@ export const bannerSchema = z.object({
   title: z.string(),
   imageString: z.string(),
 });
+export const paymentSubmissionSchema = z.object({
+  cus_name: z.string().min(1, "Name is required"),
+  cus_email: z.string().email("Invalid email address"),
+  cus_phone: z.string().min(1, "Phone number is required"),
+  cus_add1: z.string().min(1, "Zip code is required"),
+  amount: z.string().min(1, "Amount is required"),
+  currency: z.string().length(3, "Currency must be 3 characters"),
+  transactionId: z.string().min(1, "Transaction ID is required"),
+});

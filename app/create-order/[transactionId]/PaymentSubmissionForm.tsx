@@ -31,17 +31,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
+import { paymentSubmissionSchema } from "@/lib/zodSchemas";
 
 // Payment Submission Form Schema
-export const paymentSubmissionSchema = z.object({
-  cus_name: z.string().min(1, "Name is required"),
-  cus_email: z.string().email("Invalid email address"),
-  cus_phone: z.string().min(1, "Phone number is required"),
-  cus_add1: z.string().min(1, "Zip code is required"),
-  amount: z.string().min(1, "Amount is required"),
-  currency: z.string().length(3, "Currency must be 3 characters"),
-  transactionId: z.string().min(1, "Transaction ID is required"),
-});
 
 const PaymentSubmissionForm = ({
   transactionId,
@@ -50,11 +42,20 @@ const PaymentSubmissionForm = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   async function onPaymentSubmissionSubmit(
-    values: z.infer<typeof paymentSubmissionSchema>
+    data: z.infer<typeof paymentSubmissionSchema>
   ) {
     try {
       setIsSubmitting(true);
-      await submitPayment(values);
+      const formData = new FormData();
+      formData.append("cus_name", data.cus_name);
+      formData.append("cus_email", data.cus_email);
+      formData.append("cus_phone", data.cus_phone);
+      formData.append("amount", data.amount.toString());
+      formData.append("desc", data.cus_add1);
+      formData.append("transactionId", transactionId);
+      formData.append("currency", data.currency);
+      formData.append("cus_add1", data.cus_add1);
+      await submitPayment(null, formData);
       toast.message("Redirecting to payment page");
       setIsSubmitting(false);
     } catch (error: any) {
