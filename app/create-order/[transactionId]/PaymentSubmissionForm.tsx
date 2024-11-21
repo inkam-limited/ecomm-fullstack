@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { submitPayment } from "../actions";
@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
 
 // Payment Submission Form Schema
 export const paymentSubmissionSchema = z.object({
@@ -47,15 +48,17 @@ const PaymentSubmissionForm = ({
 }: {
   transactionId: string;
 }) => {
-  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   async function onPaymentSubmissionSubmit(
     values: z.infer<typeof paymentSubmissionSchema>
   ) {
     try {
-      const res = await submitPayment(values);
+      setIsSubmitting(true);
+      await submitPayment(values);
       toast.message("Redirecting to payment page");
-      router.push(res.link);
+      setIsSubmitting(false);
     } catch (error: any) {
+      setIsSubmitting(false);
       toast.error(error);
     }
   }
@@ -65,11 +68,11 @@ const PaymentSubmissionForm = ({
   >({
     resolver: zodResolver(paymentSubmissionSchema),
     defaultValues: {
-      cus_name: "",
-      cus_email: "",
-      cus_phone: "",
-      cus_add1: "",
-      amount: "0",
+      cus_name: "Some Name",
+      cus_email: "johndoe@example.com",
+      cus_phone: "1234567890",
+      cus_add1: "NRB",
+      amount: "1000",
       currency: "BDT",
       transactionId: transactionId,
     },
@@ -172,9 +175,16 @@ const PaymentSubmissionForm = ({
                   </Select>
                 )}
               />
-              <Button className="w-full" type="submit">
-                Submit Payment
-              </Button>
+              {isSubmitting ? (
+                <Button className="w-full" type="submit" disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing
+                </Button>
+              ) : (
+                <Button className="w-full" type="submit">
+                  Submit Payment
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { createPayment, getConversionRate } from "@/app/actions";
+import { createStorePayment, getConversionRate } from "@/app/actions";
 import { RotatingLines } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
 import {
@@ -93,7 +93,7 @@ export const PaymentForm = ({
     formData.append("cus_country", data.cus_country);
 
     try {
-      await createPayment(null, formData);
+      await createStorePayment(null, formData);
     } catch (error: any) {
       throw new Error(error.message);
     }

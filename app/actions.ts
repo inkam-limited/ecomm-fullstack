@@ -286,7 +286,7 @@ export async function delItem(formData: FormData) {
   revalidatePath("/bag");
 }
 
-export async function createPayment(prevState: any, formData: FormData) {
+export async function createStorePayment(prevState: any, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
