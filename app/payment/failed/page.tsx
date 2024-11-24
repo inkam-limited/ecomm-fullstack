@@ -33,7 +33,7 @@ const Page = async ({
     // Update the transaction status to 'cancelled'
     const updatedTransaction = await prisma.transaction.update({
       where: { id: transactionId },
-      data: { status: "cancelled" },
+      data: { status: "failed" },
     });
 
     console.log("Transaction cancelled", updatedTransaction);

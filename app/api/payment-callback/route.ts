@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   const pay_time = formData.get("pay_time")?.toString();
   const amount = formData.get("amount")?.toString();
   const transactionId = request.nextUrl.searchParams.get("transactionId") || "";
+
   if (!transactionId) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
@@ -33,5 +34,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  redirect(`/payment/success?orderId=${transactionId}`);
+  redirect(`/payment/success`);
 }

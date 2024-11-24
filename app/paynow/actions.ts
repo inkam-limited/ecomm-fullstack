@@ -36,22 +36,24 @@ export async function createStorePayment(prevState: any, formData: FormData) {
     cus_phone: parsedData.cus_phone,
     amount: parsedData.amount,
     tran_id: transactionId,
-    signature_key: process.env.SIGNATURE_KEY,
-    store_id: process.env.STORE_ID,
+    // signature_key: process.env.SIGNATURE_KEY,
+    // store_id: process.env.STORE_ID,
+    store_id: "aamarpaytest",
+    signature_key: "dbb74894e82415a2f7ff0ec3a97e4183",
     currency: parsedData.currency,
     desc: "Manual Payment",
     cus_add1: parsedData.cus_add1 || "",
     cus_add2: "",
     cus_city: "",
     cus_country: "",
-    success_url: `${process.env.BASE_URL}/api/callback?transactionId=${transactionId}`,
-    fail_url: `${process.env.BASE_URL}/payment/fail?transactionId=${transactionId}`,
-    cancel_url: `${process.env.BASE_URL}/payment/cancel?transactionId=${transactionId}`,
+    success_url: `${process.env.BASE_URL}/api/payment-callback?transactionId=${transaction.id}`,
+    fail_url: `${process.env.BASE_URL}/payment/failed?transactionId=${transaction.id}`,
+    cancel_url: `${process.env.BASE_URL}/payment/cancel?transactionId=${transaction.id}`,
     type: "json",
   };
 
   const { data } = await axios.post(
-    "https://secure.aamarpay.com/jsonpost.php",
+    "https://sandbox.aamarpay.com/jsonpost.php",
     { ...paymentFormData },
     {
       headers: {
