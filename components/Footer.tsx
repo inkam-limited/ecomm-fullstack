@@ -1,129 +1,101 @@
-import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
+import { Facebook, Linkedin, Instagram } from "lucide-react";
+import DigigoLogo from "./logo";
 
-const Footer = () => {
-  const quickLinks = [
-    { href: "/about", label: "About Us" },
-    { href: "/blog", label: "Blog" },
-    { href: "#", label: "Careers" },
-    { href: "/contact", label: "Contact" },
-  ];
-
-  const legalLinks = [
-    { href: "/terms", label: "Terms of Service" },
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/copyright", label: "Copyright" },
-  ];
-
-  const socialLinks = [
-    { Icon: Twitter, href: "#", label: "Twitter" },
-    { Icon: Facebook, href: "#", label: "Facebook" },
-    { Icon: Linkedin, href: "#", label: "LinkedIn" },
-  ];
-
-  const contactInfo = [
-    { Icon: Mail, info: "support@creativemarket.com" },
-    { Icon: Phone, info: "+1 (555) 123-4567" },
-    { Icon: MapPin, info: "123 Design Street, Art City, AC 12345" },
-  ];
-
+export default function Footer() {
   return (
-    <footer className="w-full py-8 md:py-8 bg-slate-50 text-slate-900">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+    <footer className="container text-slate-950 py-12 border-t border-slate-800/25">
+      <div className=" px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold mb-4">Creative Market</h4>
-            <p className="text-xs md:text-sm text-gray-800">
-              Empowering creatives with high-quality design assets since 2012.
+            <Link className="flex items-center space-x-2" href="#">
+              <DigigoLogo width={120} height={60} showAnimation={true} />
+            </Link>
+            <p className="text-sm/relaxed">
+              Digigo is a platform that allows you to create and sell digital
+              products and services. It is a complete solution for businesses
+              looking to grow their online presence and reach a wider audience.
             </p>
-            <div className="flex flex-col space-y-2">
-              {contactInfo.map(({ Icon, info }, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-xs md:text-xs text-gray-800 break-all">
-                    {info}
-                  </span>
-                </div>
-              ))}
+          </div>
+
+          {/* About Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">About Digigo</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link className="text-sm hover:underline" href="#">
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link className="text-sm hover:underline" href="#">
+                  Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link className="text-sm hover:underline" href="#">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+            <div className="space-y-2">
+              <h4 className="text-lg font-semibold">Trade License</h4>
+              <p className="text-sm">No: TRAD/DNCC/007823/2923</p>
+              <p className="text-sm">TIN: 155766503785</p>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-base font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map(({ href, label }, index) => (
-                <li key={index}>
-                  <Link
-                    href={href}
-                    className="text-xs md:text-sm text-gray-800 hover:text-primary transition-colors duration-200"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="text-base font-bold mb-4">Legal</h4>
-            <ul className="space-y-2">
-              {legalLinks.map(({ href, label }, index) => (
-                <li key={index}>
-                  <Link
-                    href={href}
-                    className="text-xs md:text-sm text-gray-800 hover:text-primary transition-colors duration-200"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-base font-bold mb-4">Stay Connected</h4>
-            <p className="text-xs md:text-sm text-gray-800 mb-4">
-              Subscribe to our newsletter for updates and exclusive offers.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md sm:rounded-l-md sm:rounded-r-none focus:outline-none focus:ring-1 focus:ring-primary"
-              />
-              <button className="w-full sm:w-auto px-4 py-2 bg-primary text-white rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-primary/90 transition-colors duration-200">
-                Subscribe
-              </button>
-            </div>
-            <div className="mt-6">
-              <div className="flex space-x-4 justify-start sm:justify-start">
-                {socialLinks.map(({ Icon, href, label }, index) => (
-                  <Link
-                    key={index}
-                    href={href}
-                    className="text-gray-800 hover:text-primary transition-colors duration-200"
-                    aria-label={label}
-                  >
-                    <Icon className="w-5 h-5 md:w-6 md:h-6" />
-                  </Link>
-                ))}
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Contact us</h3>
+            <div className="space-y-2 text-sm">
+              <p>H: 654, Road 9, Avenue 4</p>
+              <p>Mirpur DOHS, Dhaka 1216</p>
+              <div>
+                <span className="font-semibold">Phone:</span> 01896444201
+              </div>
+              <div>
+                <span className="font-semibold">Email:</span>{" "}
+                <Link
+                  className="hover:underline"
+                  href="mailto:support@Digigo.app"
+                >
+                  support@Digigo.app
+                </Link>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-8 md:mt-12 pt-8 md:pt-8 border-t border-gray-300 text-center">
-          <p className="text-xs md:text-xs text-gray-800">
-            © 2024 Creative Market. All rights reserved.
-          </p>
+          {/* Social Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Follow us</h3>
+            <div className="flex space-x-4">
+              <Link
+                href="#"
+                className="bg-white p-2 rounded-lg text-blue-700 hover:bg-gray-100 transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
+              </Link>
+              <Link
+                href="#"
+                className="bg-white p-2 rounded-lg text-blue-700 hover:bg-gray-100 transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </Link>
+              <Link
+                href="#"
+                className="bg-white p-2 rounded-lg text-blue-700 hover:bg-gray-100 transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
