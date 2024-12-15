@@ -24,12 +24,12 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">About Digigo</h3>
             <ul className="space-y-2">
               <li>
-                <Link className="text-sm hover:underline" href="#">
+                <Link className="text-sm hover:underline" href="/terms">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link className="text-sm hover:underline" href="#">
+                <Link className="text-sm hover:underline" href="/refund-policy">
                   Refund Policy
                 </Link>
               </li>
@@ -59,9 +59,9 @@ export default function Footer() {
                 <span className="font-semibold">Email:</span>{" "}
                 <Link
                   className="hover:underline"
-                  href="mailto:support@Digigo.app"
+                  href="mailto:support@digigo.studio"
                 >
-                  support@Digigo.app
+                  support@digigo.studio
                 </Link>
               </div>
             </div>
