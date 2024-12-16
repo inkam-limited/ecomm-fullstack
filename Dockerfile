@@ -1,5 +1,5 @@
 # Base image
-FROM node:20-alpine AS base
+FROM node:20-alpine3.20 AS base
 
 # Install dependencies
 FROM base AS deps
