@@ -59,7 +59,7 @@ export default function RefundPolicy() {
         <h2 className="text-2xl font-semibold mb-3">5. Refund Processing</h2>
         <p>
           Once your refund request is successfully processed and approved by
-          Jamroll Limited, refunds shall be made to the original payment method
+          Digital Goods, refunds shall be made to the original payment method
           (bank, mobile financial services account, or card) used for the
           purchase. The refund process typically takes 7 to 10 days from the
           date of approval.
