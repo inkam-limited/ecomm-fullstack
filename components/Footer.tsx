@@ -39,21 +39,16 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-            <div className="space-y-2">
-              <h4 className="text-lg font-semibold">Trade License</h4>
-              <p className="text-sm">No: TRAD/DNCC/007823/2923</p>
-              <p className="text-sm">TIN: 155766503785</p>
-            </div>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact us</h3>
             <div className="space-y-2 text-sm">
-              <p>H: 654, Road 9, Avenue 4</p>
-              <p>Mirpur DOHS, Dhaka 1216</p>
+              <p>Rupsha Tower, Plot-07</p>
+              <p>Banani B/A, Dhaka-1213</p>
               <div>
-                <span className="font-semibold">Phone:</span> 01896444201
+                <span className="font-semibold">Phone:</span> +880 1754-015254
               </div>
               <div>
                 <span className="font-semibold">Email:</span>{" "}
